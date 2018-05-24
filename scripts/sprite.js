@@ -11,12 +11,15 @@ export default class Sprite {
     this.destY = options.destY;
     this.destWidth = options.destWidth;
     this.destHeight = options.destHeight;
+    this.animCount = 0;
+    this.flipped = false;
 
     // methods
     this.moveVert = this.moveVert.bind(this);
     this.moveHoriz = this.moveHoriz.bind(this);
     this.unRender = this.unRender.bind(this);
     this.flip = this.flip.bind(this);
+    this.update = this.update.bind(this);
     this.render = this.render.bind(this);
   }
 
@@ -34,9 +37,13 @@ export default class Sprite {
 
   flip() {
     this.unRender();
-    this.context.translate(this.sourceWidth, 0);
-    this.context.scale(-1, 1);
-    this.render();
+    this.flipped = !this.flipped;
+    // this.context.save();
+    // this.context.translate(this.sourceWidth, 0);
+    // this.context.scale(-1, 1);
+    // // this.destX = this.destX * -1;
+    // this.render();
+    // this.context.restore();
   }
 
   unRender() {
@@ -46,6 +53,11 @@ export default class Sprite {
       this.destWidth,
       this.destHeight
     );
+  }
+
+  update () {
+    this.animCount++;
+    this.animate();
   }
 
   render () {

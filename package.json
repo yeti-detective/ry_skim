@@ -1,0 +1,28 @@
+{
+  "name": "ry_skim",
+  "version": "1.0.0",
+  "description": "*a javascript platformer played in the browser* *** ## You are Dragonbragon, the foretold Use your super hedgehog speed to race through the mushroom kingdom & defeat the maze ghosts. Scary. *** ### [Here](http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/) is a heck of a helpful webpage",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=production",
+    "watch": "webpack --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeti-detective/ry_skim.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yeti-detective/ry_skim/issues"
+  },
+  "homepage": "https://github.com/yeti-detective/ry_skim#readme",
+  "dependencies": {
+    "webpack": "^4.8.3"
+  },
+  "devDependencies": {
+    "webpack-cli": "^2.1.4"
+  }
+}

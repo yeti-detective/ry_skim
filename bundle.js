@@ -105,12 +105,6 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
     super(ctx, settings)
 
     this.animArray = [{x: 0, w: 0}];
-    this.animCount = 0;
-    this.animSpeed = 1000;
-
-    this.animInterval = setInterval(() => {
-      this.animate()
-    }, this.animSpeed);
 
     this.animate = this.animate.bind(this);
     this.chill = this.chill.bind(this);
@@ -119,16 +113,27 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   animate() {
-    window.clearInterval(this.animInterval);
-    this.unRender();
-    this.sourceWidth = this.animArray[this.animCount % this.animArray.length].w;
-    this.destWidth = this.sourceWidth;
-    this.sourceX = this.animArray[++this.animCount % this.animArray.length].x;
-    this.render();
-    this.animInterval = setInterval(() => {
-      this.animate()
-    }, this.animSpeed);
+    if (this.animCount % this.speed === 0) {
+      console.log(this.flipped)
+      if (this.flipped) {
+        this.animArray = this.flipImage(this.animArray)
+      }
+      this.unRender();
+      this.sourceWidth = this.animArray[(this.animCount / this.speed) % this.animArray.length].w;
+      this.destWidth = this.sourceWidth;
+      this.sourceX = this.animArray[(this.animCount / this.speed) % this.animArray.length].x;
+      this.render();
+    }
+  }
 
+  flipImage(arr) {
+    this.flipped = !this.flipped;
+    return arr.map((pos) => {
+      return {
+        x: 984 - (pos.x + pos.w),
+        w: pos.w
+      }
+    })
   }
 
   chill () {
@@ -140,7 +145,7 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
       {x: 100, w: 30},
       {x: 130, w: 30}
     ];
-    this.animSpeed = 300;
+    this.speed = 20;
     this.animate();
   }
 
@@ -155,9 +160,17 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
       {x: 180, w: 35}
     ];
     this.animArray = walkArr.concat(walkArr.reverse());
-    this.animSpeed = 200;
+    this.speed = 10;
     this.animate();
   }
+
+  // spin () {
+  //   this.sourceY = 20;
+  //   const spinArr = [
+  //     {x: 204, w: 31},
+  //     {x: }
+  //   ]
+  // }
 
 }
 
@@ -192,21 +205,6 @@ window.addEventListener('resize', () => {
   canvasSize();
 })
 
-// const sanikImg = new Image();
-// sanikImg.src = "./assets/sonic.png";
-//
-// const sanik = new Sprite(ctx, {
-//   image: sanikImg,
-//   sourceX: 0,
-//   sourceY: 0,
-//   sourceWidth: 474,
-//   sourceHeight: 361,
-//   destX: 0,
-//   destY: 0,
-//   destWidth: 474,
-//   destHeight: 361
-// })
-
 const sanik = new _sanik__WEBPACK_IMPORTED_MODULE_0__["default"](ctx)
 let count = 0;
 let sanikActions = [
@@ -215,9 +213,14 @@ let sanikActions = [
   sanik.flip
 ]
 window.addEventListener('load', () => {
+  sanik.chill()
   setInterval(() => {
-    sanikActions[++count % sanikActions.length]();
-  }, 1000)
+    sanik.update();
+    ++count;
+    // if (count % 60 === 0) {
+    //   sanikActions[(count / 60) % sanikActions.length]();
+    // }
+  }, 1000 / 60)
 })
 
 window.sanik = sanik;
@@ -248,12 +251,15 @@ class Sprite {
     this.destY = options.destY;
     this.destWidth = options.destWidth;
     this.destHeight = options.destHeight;
+    this.animCount = 0;
+    this.flipped = false;
 
     // methods
     this.moveVert = this.moveVert.bind(this);
     this.moveHoriz = this.moveHoriz.bind(this);
     this.unRender = this.unRender.bind(this);
     this.flip = this.flip.bind(this);
+    this.update = this.update.bind(this);
     this.render = this.render.bind(this);
   }
 
@@ -271,9 +277,13 @@ class Sprite {
 
   flip() {
     this.unRender();
-    this.context.translate(this.sourceWidth, 0);
-    this.context.scale(-1, 1);
-    this.render();
+    this.flipped = !this.flipped;
+    // this.context.save();
+    // this.context.translate(this.sourceWidth, 0);
+    // this.context.scale(-1, 1);
+    // // this.destX = this.destX * -1;
+    // this.render();
+    // this.context.restore();
   }
 
   unRender() {
@@ -283,6 +293,11 @@ class Sprite {
       this.destWidth,
       this.destHeight
     );
+  }
+
+  update () {
+    this.animCount++;
+    this.animate();
   }
 
   render () {

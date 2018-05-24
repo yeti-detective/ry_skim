@@ -21,12 +21,6 @@ export default class Sanik extends Sprite {
     super(ctx, settings)
 
     this.animArray = [{x: 0, w: 0}];
-    this.animCount = 0;
-    this.animSpeed = 1000;
-
-    this.animInterval = setInterval(() => {
-      this.animate()
-    }, this.animSpeed);
 
     this.animate = this.animate.bind(this);
     this.chill = this.chill.bind(this);
@@ -35,16 +29,27 @@ export default class Sanik extends Sprite {
   }
 
   animate() {
-    window.clearInterval(this.animInterval);
-    this.unRender();
-    this.sourceWidth = this.animArray[this.animCount % this.animArray.length].w;
-    this.destWidth = this.sourceWidth;
-    this.sourceX = this.animArray[++this.animCount % this.animArray.length].x;
-    this.render();
-    this.animInterval = setInterval(() => {
-      this.animate()
-    }, this.animSpeed);
+    if (this.animCount % this.speed === 0) {
+      console.log(this.flipped)
+      if (this.flipped) {
+        this.animArray = this.flipImage(this.animArray)
+      }
+      this.unRender();
+      this.sourceWidth = this.animArray[(this.animCount / this.speed) % this.animArray.length].w;
+      this.destWidth = this.sourceWidth;
+      this.sourceX = this.animArray[(this.animCount / this.speed) % this.animArray.length].x;
+      this.render();
+    }
+  }
 
+  flipImage(arr) {
+    this.flipped = !this.flipped;
+    return arr.map((pos) => {
+      return {
+        x: 984 - (pos.x + pos.w),
+        w: pos.w
+      }
+    })
   }
 
   chill () {
@@ -56,7 +61,7 @@ export default class Sanik extends Sprite {
       {x: 100, w: 30},
       {x: 130, w: 30}
     ];
-    this.animSpeed = 300;
+    this.speed = 20;
     this.animate();
   }
 
@@ -71,8 +76,16 @@ export default class Sanik extends Sprite {
       {x: 180, w: 35}
     ];
     this.animArray = walkArr.concat(walkArr.reverse());
-    this.animSpeed = 200;
+    this.speed = 10;
     this.animate();
   }
+
+  // spin () {
+  //   this.sourceY = 20;
+  //   const spinArr = [
+  //     {x: 204, w: 31},
+  //     {x: }
+  //   ]
+  // }
 
 }

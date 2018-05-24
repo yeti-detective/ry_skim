@@ -1,4 +1,6 @@
-import Sprite from './sprite'
+// import Sprite from './sprite'
+
+import Sanik from './sanik';
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext("2d");
@@ -14,25 +16,25 @@ window.addEventListener('resize', () => {
   canvasSize();
 })
 
-const sanikImg = new Image();
-sanikImg.src = "./assets/sonic.png";
+// const sanikImg = new Image();
+// sanikImg.src = "./assets/sonic.png";
+//
+// const sanik = new Sprite(ctx, {
+//   image: sanikImg,
+//   sourceX: 0,
+//   sourceY: 0,
+//   sourceWidth: 474,
+//   sourceHeight: 361,
+//   destX: 0,
+//   destY: 0,
+//   destWidth: 474,
+//   destHeight: 361
+// })
 
-const sprite = options => {
-  const that = {};
+const sanik = new Sanik(ctx)
 
-  that.context = options.context;
-  that.width = options.width;
-  that.height = options.height;
-  that.image = options.image;
-
-  return that;
-};
-
-const sanik = sprite({
-  context: ctx,
-  width: 100,
-  height: 100,
-  image: sanikImg
+window.addEventListener('load', () => {
+  
 })
 
-ctx.drawImage(sanik)
+window.sanik = sanik;

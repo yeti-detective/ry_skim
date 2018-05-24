@@ -16,19 +16,28 @@ const sonicOptions = {
 }
 
 export default class Sanik extends Sprite {
-  constructor(ctx, options = sonicOptions) {
-    super(ctx, options)
+  constructor(ctx, options) {
+    const settings = Object.assign({}, sonicOptions, options);
+    super(ctx, settings)
+
+    this.animArray = [];
+    this.animCount = 0;
+    
+    setInterval(() => {
+      this.animate()
+    }, 300)
+  }
+
+  animate() {
+    this.unRender();
+    this.sourceX = this.animArray[++this.animCount % this.animArray.length]
+    this.render();
   }
 
   chill () {
     this.sourceY = 20;
     let chillCount = 0;
-    const chillimations = [0, 35, 67, 100, 130]
-    const sonicChill = setInterval(() => {
-      this.unRender();
-      this.sourceX = chillimations[++chillCount % chillimations.length];
-      this.render();
-    }, 500)
+    this.animArray = [0, 35, 67, 100, 130]
   }
 
 }

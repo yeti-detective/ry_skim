@@ -34,7 +34,7 @@ window.addEventListener('resize', () => {
 const sanik = new Sanik(ctx)
 
 window.addEventListener('load', () => {
-  
+  sanik.chill()
 })
 
 window.sanik = sanik;

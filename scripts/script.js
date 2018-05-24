@@ -32,9 +32,16 @@ window.addEventListener('resize', () => {
 // })
 
 const sanik = new Sanik(ctx)
-
+let count = 0;
+let sanikActions = [
+  sanik.chill,
+  sanik.walk,
+  sanik.flip
+]
 window.addEventListener('load', () => {
-  sanik.chill()
+  setInterval(() => {
+    sanikActions[++count % sanikActions.length]();
+  }, 1000)
 })
 
 window.sanik = sanik;

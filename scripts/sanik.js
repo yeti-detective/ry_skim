@@ -20,24 +20,59 @@ export default class Sanik extends Sprite {
     const settings = Object.assign({}, sonicOptions, options);
     super(ctx, settings)
 
-    this.animArray = [];
+    this.animArray = [{x: 0, w: 0}];
     this.animCount = 0;
-    
-    setInterval(() => {
+    this.animSpeed = 1000;
+
+    this.animInterval = setInterval(() => {
       this.animate()
-    }, 300)
+    }, this.animSpeed);
+
+    this.animate = this.animate.bind(this);
+    this.chill = this.chill.bind(this);
+    this.walk = this.walk.bind(this);
+
   }
 
   animate() {
+    window.clearInterval(this.animInterval);
     this.unRender();
-    this.sourceX = this.animArray[++this.animCount % this.animArray.length]
+    this.sourceWidth = this.animArray[this.animCount % this.animArray.length].w;
+    this.destWidth = this.sourceWidth;
+    this.sourceX = this.animArray[++this.animCount % this.animArray.length].x;
     this.render();
+    this.animInterval = setInterval(() => {
+      this.animate()
+    }, this.animSpeed);
+
   }
 
   chill () {
     this.sourceY = 20;
-    let chillCount = 0;
-    this.animArray = [0, 35, 67, 100, 130]
+    this.animArray = [
+      {x: 0, w: 30},
+      {x: 35, w: 30},
+      {x: 67, w: 30},
+      {x: 100, w: 30},
+      {x: 130, w: 30}
+    ];
+    this.animSpeed = 300;
+    this.animate();
+  }
+
+  walk () {
+    this.sourceY = 62;
+    const walkArr = [
+      {x: 0, w: 30},
+      {x: 35, w: 34},
+      {x: 73, w: 30},
+      {x: 108, w: 30},
+      {x: 138, w: 31},
+      {x: 180, w: 35}
+    ];
+    this.animArray = walkArr.concat(walkArr.reverse());
+    this.animSpeed = 200;
+    this.animate();
   }
 
 }

@@ -16,6 +16,7 @@ export default class Sprite {
     this.moveVert = this.moveVert.bind(this);
     this.moveHoriz = this.moveHoriz.bind(this);
     this.unRender = this.unRender.bind(this);
+    this.flip = this.flip.bind(this);
     this.render = this.render.bind(this);
   }
 

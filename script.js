@@ -1,8 +1,16 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext("2d");
 
-ctx.canvas.width = window.innerWidth * 0.9;
-// TODO: add window resize event listener to make canvas responsive
+const canvasSize = () => {
+  ctx.canvas.width = window.innerWidth * 0.9;
+  ctx.canvas.height = window.innerHeight * 0.8;
+}
+
+canvasSize();
+
+window.addEventListener('resize', () => {
+  canvasSize();
+})
 
 const sanik = new Image();
 sanik.src = "./assets/sonic.png";

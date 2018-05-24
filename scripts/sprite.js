@@ -31,6 +31,13 @@ export default class Sprite {
     this.render();
   }
 
+  flip() {
+    this.unRender();
+    this.context.translate(this.sourceWidth, 0);
+    this.context.scale(-1, 1);
+    this.render();
+  }
+
   unRender() {
     this.context.clearRect(
       this.destX,

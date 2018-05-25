@@ -139,6 +139,18 @@ const controller = (player) => {
         null
     }
   })
+  document.addEventListener('keyup', (e) => {
+    switch (e.code) {
+      case "ArrowRight":
+      case "KeyD":
+      case "ArrowLeft":
+      case "KeyA":
+        player.stop();
+        break;
+      default:
+        null
+    }
+  })
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (controller);
@@ -218,15 +230,10 @@ class Game {
 __webpack_require__.r(__webpack_exports__);
 const physics = (player, world) => {
   if (player.sprite.destY < 202) {
-    player.vVel += 4;
+    player.vVel += 3;
   } else if (player.sprite.destY > 202) {
     player.vVel = 0;
     player.sprite.destY = 202;
-  }
-  if (player.hVel > 0) {
-    player.hVel -= 1;
-  } else if (player.hVel < 0) {
-    player.hVel += 1;
   }
   player.affect();
 }
@@ -266,18 +273,21 @@ class Player {
 
   left () {
     this.sprite.facingLeft = true;
-    this.hVel -= 15;
+    this.hVel = -7;
   }
 
   right () {
     this.sprite.facingLeft = false;
-    this.hVel += 15;
+    this.hVel = 7;
   }
 
   jump () {
     this.vVel -= 30;
   }
 
+  stop () {
+    this.hVel = 0;
+  }
 
 }
 
@@ -532,15 +542,23 @@ const touchController = (player) => {
   const right = document.getElementById('right');
   const jump = document.getElementById('jump');
 
-  left.addEventListener('click', (e) => {
+  left.addEventListener('touchstart', (e) => {
     e.preventDefault();
     player.left();
   })
-  right.addEventListener('click', (e) => {
+  left.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    player.stop();
+  })
+  right.addEventListener('touchstart', (e) => {
     e.preventDefault();
     player.right();
   })
-  jump.addEventListener('click', (e) => {
+  right.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    player.stop();
+  })
+  jump.addEventListener('touchstart', (e) => {
     e.preventDefault();
     player.jump();
   })

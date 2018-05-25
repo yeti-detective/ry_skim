@@ -21,5 +21,4 @@ export default class Background extends Sprite {
     super(context, settings);
   }
 
-
 }

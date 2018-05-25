@@ -132,6 +132,7 @@ const controller = (player) => {
         break;
       case "Space":
       case "ArrowUp":
+      case "KeyW":
         player.jump();
         break;
       default:
@@ -160,6 +161,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _physics__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./physics */ "./scripts/physics.js");
 /* harmony import */ var _player__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./player */ "./scripts/player.js");
 /* harmony import */ var _controller__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./controller */ "./scripts/controller.js");
+/* harmony import */ var _touch_controller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./touch_controller */ "./scripts/touch_controller.js");
+
 
 
 
@@ -181,6 +184,7 @@ class Game {
     this.physics = _physics__WEBPACK_IMPORTED_MODULE_2__["default"];
 
     Object(_controller__WEBPACK_IMPORTED_MODULE_4__["default"])(this.player);
+    Object(_touch_controller__WEBPACK_IMPORTED_MODULE_5__["default"])(this.player);
   }
 
   tick () {
@@ -510,6 +514,39 @@ class Sprite {
     );
   }
 }
+
+
+/***/ }),
+
+/***/ "./scripts/touch_controller.js":
+/*!*************************************!*\
+  !*** ./scripts/touch_controller.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const touchController = (player) => {
+  const left = document.getElementById('left');
+  const right = document.getElementById('right');
+  const jump = document.getElementById('jump');
+
+  left.addEventListener('click', (e) => {
+    e.preventDefault();
+    player.left();
+  })
+  right.addEventListener('click', (e) => {
+    e.preventDefault();
+    player.right();
+  })
+  jump.addEventListener('click', (e) => {
+    e.preventDefault();
+    player.jump();
+  })
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (touchController);
 
 
 /***/ })

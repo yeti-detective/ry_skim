@@ -38,12 +38,6 @@ export default class Sprite {
   flip() {
     this.unRender();
     this.flipped = !this.flipped;
-    // this.context.save();
-    // this.context.translate(this.sourceWidth, 0);
-    // this.context.scale(-1, 1);
-    // // this.destX = this.destX * -1;
-    // this.render();
-    // this.context.restore();
   }
 
   unRender() {

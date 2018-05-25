@@ -19,7 +19,7 @@ export default class Sanik extends Sprite {
   constructor(ctx, options) {
     const settings = Object.assign({}, sonicOptions, options);
     super(ctx, settings);
-
+    this.facingLeft = false;
     this.animArray = [{x: 0, w: 0}];
 
     this.animate = this.animate.bind(this);
@@ -31,7 +31,11 @@ export default class Sanik extends Sprite {
   animate() {
     if (this.animCount % this.speed === 0) {
       if (this.flipped) {
-        this.animArray = this.flipImage(this.animArray);
+        this.facingLeft = !this.facingLeft
+        this.flipped = false;
+      }
+      if (this.facingLeft) {
+        this.animArray = this.leftAnimArr;
       }
       this.unRender();
       this.sourceWidth = this.animArray[(this.animCount / this.speed) % this.animArray.length].w;
@@ -42,7 +46,6 @@ export default class Sanik extends Sprite {
   }
 
   flipImage(arr) {
-    this.flipped = !this.flipped;
     return arr.map((pos) => {
       return {
         x: 984 - (pos.x + pos.w),
@@ -60,6 +63,7 @@ export default class Sanik extends Sprite {
       {x: 100, w: 30},
       {x: 130, w: 30}
     ];
+    this.leftAnimArr = this.flipImage(this.animArray)
     this.speed = 20;
     this.animate();
   }
@@ -75,6 +79,7 @@ export default class Sanik extends Sprite {
       {x: 180, w: 35}
     ];
     this.animArray = walkArr.concat(walkArr.reverse());
+    this.leftAnimArr = this.flipImage(this.animArray)
     this.speed = 10;
     this.animate();
   }

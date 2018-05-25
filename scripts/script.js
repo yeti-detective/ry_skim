@@ -15,7 +15,7 @@ canvasSize();
 window.addEventListener('resize', () => {
   canvasSize();
 });
-const background = new Background(ctx);
+// const background = new Background(ctx);
 const sanik = new Sanik(ctx);
 let count = 0;
 let sanikActions = [
@@ -32,6 +32,9 @@ window.addEventListener('load', () => {
     ++count;
     if (count % 60 === 0) {
       sanikActions[(count / 60) % sanikActions.length]();
+      if (sanikActions[(count / 60) % sanikActions.length] === undefined) {
+        console.log('whoopsie');
+      }
     }
   }, 1000 / 60);
 });

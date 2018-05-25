@@ -105,7 +105,6 @@ class Background extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
     super(context, settings);
   }
 
-
 }
 
 
@@ -135,7 +134,7 @@ const controller = (player) => {
         break;
       case "Space":
       case "ArrowUp":
-        player.vVel -= 20;
+        player.vVel -= 30;
         break;
       default:
         null
@@ -187,7 +186,6 @@ class Game {
   }
 
   tick () {
-    debugger
     this.player.sprite.update();
     this.background.update();
     this.physics(this.player);
@@ -197,6 +195,8 @@ class Game {
   render() {
     this.player.sprite.unRender();
     this.background.unRender();
+    this.background.destWidth = ctx.canvas.width;
+    this.background.sourceWidth = ctx.canvas.width;
     this.background.render();
     this.player.sprite.render();
   }
@@ -216,12 +216,15 @@ class Game {
 __webpack_require__.r(__webpack_exports__);
 const physics = (player, world) => {
   if (player.sprite.destY < 202) {
-    player.vVel += 5;
+    player.vVel += 1;
+  } else if (player.sprite.destY > 202) {
+    player.vVel = 0;
+    player.sprite.destY = 202;
   }
   if (player.hVel > 0) {
-    player.hVel -= 10;
+    player.hVel -= 1;
   } else if (player.hVel < 0) {
-    player.hVel -= 10;
+    player.hVel += 1;
   }
   player.affect();
 }
@@ -250,7 +253,7 @@ class Player {
   }
 
   affect () {
-    if (this.hVel < 5) {
+    if (this.hVel === 0) {
       this.sprite.chill();
     } else {
       this.sprite.walk();
@@ -402,38 +405,13 @@ canvasSize();
 window.addEventListener('resize', () => {
   canvasSize();
 });
-// const background = new Background(ctx);
-// const sanik = new Sanik(ctx);
-// let count = 0;
-// let sanikActions = [
-//   sanik.chill,
-//   // sanik.flip,
-//   sanik.walk,
-//   // sanik.flip
-// ];
 
 const game = new _game_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
 window.addEventListener('load', () => {
-  // sanik.chill();
   setInterval(() => {
     game.tick();
-    // background.update();
-    // sanik.update();
-    // background.unRender();
-    // sanik.unRender();
-    // background.render();
-    // sanik.render();
-    // ++count;
-    // if (count % 60 === 0) {
-    //   sanikActions[(count / 60) % sanikActions.length]();
-    //   if (sanikActions[(count / 60) % sanikActions.length] === undefined) {
-    //     console.log('whoopsie');
-    //   }
-    // }
   }, 1000 / 60);
 });
-
-// window.sanik = sanik;
 
 
 /***/ }),

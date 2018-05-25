@@ -18,6 +18,18 @@ const controller = (player) => {
         null
     }
   })
+  document.addEventListener('keyup', (e) => {
+    switch (e.code) {
+      case "ArrowRight":
+      case "KeyD":
+      case "ArrowLeft":
+      case "KeyA":
+        player.stop();
+        break;
+      default:
+        null
+    }
+  })
 }
 
 export default controller;

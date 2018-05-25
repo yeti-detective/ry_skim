@@ -3,15 +3,23 @@ const touchController = (player) => {
   const right = document.getElementById('right');
   const jump = document.getElementById('jump');
 
-  left.addEventListener('click', (e) => {
+  left.addEventListener('touchstart', (e) => {
     e.preventDefault();
     player.left();
   })
-  right.addEventListener('click', (e) => {
+  left.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    player.stop();
+  })
+  right.addEventListener('touchstart', (e) => {
     e.preventDefault();
     player.right();
   })
-  jump.addEventListener('click', (e) => {
+  right.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    player.stop();
+  })
+  jump.addEventListener('touchstart', (e) => {
     e.preventDefault();
     player.jump();
   })

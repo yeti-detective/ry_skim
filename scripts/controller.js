@@ -18,3 +18,5 @@ const controller = (player) {
     }
   })
 }
+
+export default controller;

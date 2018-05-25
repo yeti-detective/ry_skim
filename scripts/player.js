@@ -1,13 +1,20 @@
-export class Player {
+export default class Player {
   constructor(sprite) {
-    this.char = sprite;
+    this.sprite = sprite;
 
     this.hVel = 0;
     this.vVel = 0;
   }
 
-  animate () {
-    sprite.moveVert(this.vVel);
-    sprite.moveHoriz(this.hVel);
+  affect () {
+    if (this.hVel < 5) {
+      this.sprite.chill();
+    } else {
+      this.sprite.walk();
+    }
+    this.sprite.moveVert(this.vVel);
+    this.sprite.moveHoriz(this.hVel);
   }
+
+
 }

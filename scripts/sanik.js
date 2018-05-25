@@ -1,7 +1,7 @@
 import Sprite from './sprite';
 
 const sanikImg = new Image();
-sanikImg.src = "./assets/sonic.png"
+sanikImg.src = "./assets/sonic.png";
 
 const sonicOptions = {
   image: sanikImg,
@@ -13,12 +13,12 @@ const sonicOptions = {
   destY: 0,
   destWidth: 30,
   destHeight: 40
-}
+};
 
 export default class Sanik extends Sprite {
   constructor(ctx, options) {
     const settings = Object.assign({}, sonicOptions, options);
-    super(ctx, settings)
+    super(ctx, settings);
 
     this.animArray = [{x: 0, w: 0}];
 
@@ -30,9 +30,9 @@ export default class Sanik extends Sprite {
 
   animate() {
     if (this.animCount % this.speed === 0) {
-      console.log(this.flipped)
+      console.log(this.flipped);
       if (this.flipped) {
-        this.animArray = this.flipImage(this.animArray)
+        this.animArray = this.flipImage(this.animArray);
       }
       this.unRender();
       this.sourceWidth = this.animArray[(this.animCount / this.speed) % this.animArray.length].w;
@@ -48,8 +48,8 @@ export default class Sanik extends Sprite {
       return {
         x: 984 - (pos.x + pos.w),
         w: pos.w
-      }
-    })
+      };
+    });
   }
 
   chill () {

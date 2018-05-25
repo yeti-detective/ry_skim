@@ -31,6 +31,8 @@ export default class Game {
   render() {
     this.player.sprite.unRender();
     this.background.unRender();
+    this.background.destWidth = ctx.canvas.width;
+    this.background.sourceWidth = ctx.canvas.width;
     this.background.render();
     this.player.sprite.render();
   }

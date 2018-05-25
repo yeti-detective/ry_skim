@@ -13,7 +13,7 @@ const controller = (player) => {
         break;
       case "Space":
       case "ArrowUp":
-        player.vVel -= 20;
+        player.vVel -= 30;
         break;
       default:
         null

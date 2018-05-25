@@ -10,7 +10,7 @@ const sonicOptions = {
   sourceWidth: 30,
   sourceHeight: 40,
   destX: 85,
-  destY: 140,
+  destY: 202,
   destWidth: 30,
   destHeight: 40
 };

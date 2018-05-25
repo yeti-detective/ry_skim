@@ -71,6 +71,46 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./scripts/background.js":
+/*!*******************************!*\
+  !*** ./scripts/background.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Background; });
+/* harmony import */ var _sprite__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sprite */ "./scripts/sprite.js");
+
+
+const mushroomKingdom = new Image();
+mushroomKingdom.src = './assets/mushroom_kingdom.png';
+
+const bgDefaults = {
+  image: mushroomKingdom,
+  sourceX: 0,
+  sourceY: 0,
+  sourceWidth: 900,
+  sourceHeight: 225,
+  destX: 0,
+  destY: 0,
+  destWidth: 900,
+  destHeight: 200
+};
+
+class Background extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor(context, options) {
+    const settings = Object.assign({}, bgDefaults, options);
+    super(context, settings);
+  }
+
+
+}
+
+
+/***/ }),
+
 /***/ "./scripts/sanik.js":
 /*!**************************!*\
   !*** ./scripts/sanik.js ***!
@@ -114,7 +154,6 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   animate() {
     if (this.animCount % this.speed === 0) {
-      console.log(this.flipped);
       if (this.flipped) {
         this.animArray = this.flipImage(this.animArray);
       }
@@ -186,7 +225,8 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _sanik__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sanik */ "./scripts/sanik.js");
+/* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./background */ "./scripts/background.js");
+/* harmony import */ var _sanik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sanik */ "./scripts/sanik.js");
 // import Sprite from './sprite'
 
 
@@ -204,19 +244,20 @@ canvasSize();
 window.addEventListener('resize', () => {
   canvasSize();
 });
-
-const sanik = new _sanik__WEBPACK_IMPORTED_MODULE_0__["default"](ctx);
+const background = new _background__WEBPACK_IMPORTED_MODULE_0__["default"](ctx);
+const sanik = new _sanik__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
 let count = 0;
 let sanikActions = [
   sanik.chill,
-  sanik.flip,
+  // sanik.flip,
   sanik.walk,
-  sanik.flip
+  // sanik.flip
 ];
 window.addEventListener('load', () => {
   sanik.chill();
   setInterval(() => {
     sanik.update();
+    // background.render();
     ++count;
     if (count % 60 === 0) {
       sanikActions[(count / 60) % sanikActions.length]();

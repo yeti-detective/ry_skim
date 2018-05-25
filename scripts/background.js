@@ -8,11 +8,11 @@ const bgDefaults = {
   sourceX: 0,
   sourceY: 0,
   sourceWidth: 900,
-  sourceHeight: 225,
+  sourceHeight: 300,
   destX: 0,
   destY: 0,
   destWidth: 900,
-  destHeight: 200
+  destHeight: 360
 };
 
 export default class Background extends Sprite {
@@ -21,9 +21,5 @@ export default class Background extends Sprite {
     super(context, settings);
   }
 
-  animate() {
-    this.unRender();
-    this.render();
-  }
 
 }

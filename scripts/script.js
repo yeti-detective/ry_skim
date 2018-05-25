@@ -17,6 +17,7 @@ window.addEventListener('resize', () => {
 });
 
 const game = new Game();
+
 window.addEventListener('load', () => {
   setInterval(() => {
     game.tick();

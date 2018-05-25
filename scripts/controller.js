@@ -3,17 +3,15 @@ const controller = (player) => {
     switch (e.code) {
       case "ArrowRight":
       case "KeyD":
-        player.sprite.facingLeft = false;
-        player.hVel += 15;
+        player.right();
         break;
       case "ArrowLeft":
       case "KeyA":
-        player.sprite.facingLeft = true;
-        player.hVel -= 15;
+        player.left();
         break;
       case "Space":
       case "ArrowUp":
-        player.vVel -= 30;
+        player.jump();
         break;
       default:
         null

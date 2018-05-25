@@ -16,5 +16,19 @@ export default class Player {
     this.sprite.moveHoriz(this.hVel);
   }
 
+  left () {
+    this.sprite.facingLeft = true;
+    this.hVel -= 15;
+  }
+
+  right () {
+    this.sprite.facingLeft = false;
+    this.hVel += 15;
+  }
+
+  jump () {
+    this.vVel -= 30;
+  }
+
 
 }

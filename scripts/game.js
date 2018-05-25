@@ -22,7 +22,6 @@ export default class Game {
   }
 
   tick () {
-    debugger
     this.player.sprite.update();
     this.background.update();
     this.physics(this.player);

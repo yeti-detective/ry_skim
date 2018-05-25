@@ -85,7 +85,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const sanikImg = new Image();
-sanikImg.src = "./assets/sonic.png"
+sanikImg.src = "./assets/sonic.png";
 
 const sonicOptions = {
   image: sanikImg,
@@ -97,12 +97,12 @@ const sonicOptions = {
   destY: 0,
   destWidth: 30,
   destHeight: 40
-}
+};
 
 class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(ctx, options) {
     const settings = Object.assign({}, sonicOptions, options);
-    super(ctx, settings)
+    super(ctx, settings);
 
     this.animArray = [{x: 0, w: 0}];
 
@@ -114,9 +114,9 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   animate() {
     if (this.animCount % this.speed === 0) {
-      console.log(this.flipped)
+      console.log(this.flipped);
       if (this.flipped) {
-        this.animArray = this.flipImage(this.animArray)
+        this.animArray = this.flipImage(this.animArray);
       }
       this.unRender();
       this.sourceWidth = this.animArray[(this.animCount / this.speed) % this.animArray.length].w;
@@ -132,8 +132,8 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
       return {
         x: 984 - (pos.x + pos.w),
         w: pos.w
-      }
-    })
+      };
+    });
   }
 
   chill () {
@@ -197,31 +197,32 @@ const ctx = canvas.getContext("2d");
 const canvasSize = () => {
   ctx.canvas.width = window.innerWidth * 0.9;
   ctx.canvas.height = window.innerHeight * 0.8;
-}
+};
 
 canvasSize();
 
 window.addEventListener('resize', () => {
   canvasSize();
-})
+});
 
-const sanik = new _sanik__WEBPACK_IMPORTED_MODULE_0__["default"](ctx)
+const sanik = new _sanik__WEBPACK_IMPORTED_MODULE_0__["default"](ctx);
 let count = 0;
 let sanikActions = [
   sanik.chill,
+  sanik.flip,
   sanik.walk,
   sanik.flip
-]
+];
 window.addEventListener('load', () => {
-  sanik.chill()
+  sanik.chill();
   setInterval(() => {
     sanik.update();
     ++count;
-    // if (count % 60 === 0) {
-    //   sanikActions[(count / 60) % sanikActions.length]();
-    // }
-  }, 1000 / 60)
-})
+    if (count % 60 === 0) {
+      sanikActions[(count / 60) % sanikActions.length]();
+    }
+  }, 1000 / 60);
+});
 
 window.sanik = sanik;
 

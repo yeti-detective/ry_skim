@@ -1,5 +1,5 @@
 // import Sprite from './sprite'
-
+import Background from './background';
 import Sanik from './sanik';
 
 const canvas = document.getElementById('canvas');
@@ -15,19 +15,20 @@ canvasSize();
 window.addEventListener('resize', () => {
   canvasSize();
 });
-
+const background = new Background(ctx);
 const sanik = new Sanik(ctx);
 let count = 0;
 let sanikActions = [
   sanik.chill,
-  sanik.flip,
+  // sanik.flip,
   sanik.walk,
-  sanik.flip
+  // sanik.flip
 ];
 window.addEventListener('load', () => {
   sanik.chill();
   setInterval(() => {
     sanik.update();
+    // background.render();
     ++count;
     if (count % 60 === 0) {
       sanikActions[(count / 60) % sanikActions.length]();

@@ -18,17 +18,20 @@ export default class Player {
 
   left () {
     this.sprite.facingLeft = true;
-    this.hVel -= 15;
+    this.hVel = -7;
   }
 
   right () {
     this.sprite.facingLeft = false;
-    this.hVel += 15;
+    this.hVel = 7;
   }
 
   jump () {
     this.vVel -= 30;
   }
 
+  stop () {
+    this.hVel = 0;
+  }
 
 }

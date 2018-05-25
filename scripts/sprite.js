@@ -23,6 +23,10 @@ export default class Sprite {
     this.render = this.render.bind(this);
   }
 
+  animate () {
+    // meant to be overwritten by child classes
+  }
+
   moveVert(px) {
     this.unRender();
     this.destY += px;
@@ -36,7 +40,6 @@ export default class Sprite {
   }
 
   flip() {
-    this.unRender();
     this.flipped = !this.flipped;
   }
 
@@ -51,9 +54,7 @@ export default class Sprite {
 
   update () {
     this.animCount++;
-    this.unRender();
     this.animate();
-    this.render();
   }
 
   render () {

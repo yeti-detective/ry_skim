@@ -124,17 +124,15 @@ const controller = (player) => {
     switch (e.code) {
       case "ArrowRight":
       case "KeyD":
-        player.sprite.facingLeft = false;
-        player.hVel += 15;
+        player.right();
         break;
       case "ArrowLeft":
       case "KeyA":
-        player.sprite.facingLeft = true;
-        player.hVel -= 15;
+        player.left();
         break;
       case "Space":
       case "ArrowUp":
-        player.vVel -= 30;
+        player.jump();
         break;
       default:
         null
@@ -216,7 +214,7 @@ class Game {
 __webpack_require__.r(__webpack_exports__);
 const physics = (player, world) => {
   if (player.sprite.destY < 202) {
-    player.vVel += 1;
+    player.vVel += 4;
   } else if (player.sprite.destY > 202) {
     player.vVel = 0;
     player.sprite.destY = 202;
@@ -260,6 +258,20 @@ class Player {
     }
     this.sprite.moveVert(this.vVel);
     this.sprite.moveHoriz(this.hVel);
+  }
+
+  left () {
+    this.sprite.facingLeft = true;
+    this.hVel -= 15;
+  }
+
+  right () {
+    this.sprite.facingLeft = false;
+    this.hVel += 15;
+  }
+
+  jump () {
+    this.vVel -= 30;
   }
 
 
@@ -318,11 +330,9 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
       this.animArray = this.leftAnimArr;
     }
     if (this.animCount % this.speed === 0) {
-      // this.unRender();
       this.sourceWidth = this.animArray[(this.animCount / this.speed) % this.animArray.length].w;
       this.destWidth = this.sourceWidth;
       this.sourceX = this.animArray[(this.animCount / this.speed) % this.animArray.length].x;
-      // this.render();
     }
   }
 
@@ -407,6 +417,7 @@ window.addEventListener('resize', () => {
 });
 
 const game = new _game_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+
 window.addEventListener('load', () => {
   setInterval(() => {
     game.tick();

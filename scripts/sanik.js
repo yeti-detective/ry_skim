@@ -37,11 +37,9 @@ export default class Sanik extends Sprite {
       this.animArray = this.leftAnimArr;
     }
     if (this.animCount % this.speed === 0) {
-      // this.unRender();
       this.sourceWidth = this.animArray[(this.animCount / this.speed) % this.animArray.length].w;
       this.destWidth = this.sourceWidth;
       this.sourceX = this.animArray[(this.animCount / this.speed) % this.animArray.length].x;
-      // this.render();
     }
   }
 

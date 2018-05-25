@@ -92,11 +92,11 @@ const bgDefaults = {
   sourceX: 0,
   sourceY: 0,
   sourceWidth: 900,
-  sourceHeight: 225,
+  sourceHeight: 300,
   destX: 0,
   destY: 0,
   destWidth: 900,
-  destHeight: 200
+  destHeight: 360
 };
 
 class Background extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
@@ -105,10 +105,6 @@ class Background extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
     super(context, settings);
   }
 
-  animate() {
-    this.unRender();
-    this.render();
-  }
 
 }
 
@@ -138,7 +134,7 @@ const sonicOptions = {
   sourceWidth: 30,
   sourceHeight: 40,
   destX: 85,
-  destY: 140,
+  destY: 202,
   destWidth: 30,
   destHeight: 40
 };
@@ -245,7 +241,6 @@ const ctx = canvas.getContext("2d");
 
 const canvasSize = () => {
   ctx.canvas.width = window.innerWidth * 0.9;
-  ctx.canvas.height = window.innerHeight * 0.8;
 };
 
 canvasSize();
@@ -265,8 +260,12 @@ let sanikActions = [
 window.addEventListener('load', () => {
   sanik.chill();
   setInterval(() => {
-    background.animate();
+    background.update();
     sanik.update();
+    background.unRender();
+    sanik.unRender();
+    background.render();
+    sanik.render();
     ++count;
     if (count % 60 === 0) {
       sanikActions[(count / 60) % sanikActions.length]();
@@ -317,6 +316,10 @@ class Sprite {
     this.render = this.render.bind(this);
   }
 
+  animate () {
+    // meant to be overwritten by child classes
+  }
+
   moveVert(px) {
     this.unRender();
     this.destY += px;
@@ -330,7 +333,6 @@ class Sprite {
   }
 
   flip() {
-    this.unRender();
     this.flipped = !this.flipped;
   }
 
@@ -345,9 +347,7 @@ class Sprite {
 
   update () {
     this.animCount++;
-    this.unRender();
     this.animate();
-    this.render();
   }
 
   render () {

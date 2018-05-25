@@ -51,7 +51,9 @@ export default class Sprite {
 
   update () {
     this.animCount++;
+    this.unRender();
     this.animate();
+    this.render();
   }
 
   render () {

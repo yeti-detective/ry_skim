@@ -9,8 +9,8 @@ const sonicOptions = {
   sourceY: 0,
   sourceWidth: 30,
   sourceHeight: 40,
-  destX: 0,
-  destY: 0,
+  destX: 85,
+  destY: 140,
   destWidth: 30,
   destHeight: 40
 };
@@ -37,11 +37,11 @@ export default class Sanik extends Sprite {
       if (this.facingLeft) {
         this.animArray = this.leftAnimArr;
       }
-      this.unRender();
+      // this.unRender();
       this.sourceWidth = this.animArray[(this.animCount / this.speed) % this.animArray.length].w;
       this.destWidth = this.sourceWidth;
       this.sourceX = this.animArray[(this.animCount / this.speed) % this.animArray.length].x;
-      this.render();
+      // this.render();
     }
   }
 

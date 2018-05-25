@@ -7,7 +7,7 @@ export default class Player {
   }
 
   affect () {
-    if (this.hVel < 5) {
+    if (this.hVel === 0) {
       this.sprite.chill();
     } else {
       this.sprite.walk();

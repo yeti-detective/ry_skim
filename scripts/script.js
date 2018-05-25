@@ -7,7 +7,6 @@ const ctx = canvas.getContext("2d");
 
 const canvasSize = () => {
   ctx.canvas.width = window.innerWidth * 0.9;
-  ctx.canvas.height = window.innerHeight * 0.8;
 };
 
 canvasSize();
@@ -27,8 +26,12 @@ let sanikActions = [
 window.addEventListener('load', () => {
   sanik.chill();
   setInterval(() => {
-    background.animate();
+    background.update();
     sanik.update();
+    background.unRender();
+    sanik.unRender();
+    background.render();
+    sanik.render();
     ++count;
     if (count % 60 === 0) {
       sanikActions[(count / 60) % sanikActions.length]();

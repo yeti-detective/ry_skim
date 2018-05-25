@@ -11,6 +11,7 @@ const controller = (player) => {
         break;
       case "Space":
       case "ArrowUp":
+      case "KeyW":
         player.jump();
         break;
       default:

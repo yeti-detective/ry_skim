@@ -3,6 +3,7 @@ import Background from './background';
 import physics from './physics';
 import Player from './player';
 import controller from './controller';
+import touchController from './touch_controller';
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -19,6 +20,7 @@ export default class Game {
     this.physics = physics;
 
     controller(this.player);
+    touchController(this.player);
   }
 
   tick () {

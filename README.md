@@ -1,8 +1,8 @@
-# Ry Skim
+# [Ry Skim](https://yeti-detective.github.io/ry_skim/)
 *a javascript platformer played in the browser*
 ***
 ## You are Dragonbragon, the foretold
 Use your super hedgehog speed to race through the mushroom kingdom & defeat the maze ghosts. Scary.
 ***
 ###
-[Here](http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/) is a heck of a helpful webpage
+[Here](http://www.williammalone.com/articles/create-html5-canvas-javascript-sprite-animation/) is a heck of a helpful webpage about sprite animation with HTML5 canvas.

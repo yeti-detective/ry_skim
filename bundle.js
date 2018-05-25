@@ -542,26 +542,103 @@ const touchController = (player) => {
   const right = document.getElementById('right');
   const jump = document.getElementById('jump');
 
-  left.addEventListener('touchstart', (e) => {
+  const controller = document.getElementById('controller');
+
+  controller.addEventListener('mousedown', (e) => {
     e.preventDefault();
-    player.left();
+    switch (e.target) {
+      case left:
+        player.left();
+        break;
+      case right:
+        player.right();
+        break;
+      case jump:
+        player.jump();
+      default:
+        null;
+    }
   })
-  left.addEventListener('touchend', (e) => {
+  controller.addEventListener('mouseup', (e) => {
     e.preventDefault();
-    player.stop();
+    switch (e.target) {
+      case left:
+      case right:
+        player.stop();
+        break;
+      default:
+        null;
+    }
   })
-  right.addEventListener('touchstart', (e) => {
+
+  controller.addEventListener('touchstart', (e) => {
     e.preventDefault();
-    player.right();
+    switch (e.target) {
+      case left:
+        player.left();
+        break;
+      case right:
+        player.right();
+        break;
+      case jump:
+        player.jump();
+        break;
+      default:
+        null;
+    }
   })
-  right.addEventListener('touchend', (e) => {
+  controller.addEventListener('touchend', (e) => {
     e.preventDefault();
-    player.stop();
+    switch (e.target) {
+      case left:
+      case right:
+        player.stop();
+        break;
+      default:
+        null;
+    }
   })
-  jump.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    player.jump();
-  })
+  //
+  // left.addEventListener('touchstart', (e) => {
+  //   e.preventDefault();
+  //   player.left();
+  // })
+  // left.addEventListener('touchend', (e) => {
+  //   e.preventDefault();
+  //   player.stop();
+  // })
+  // right.addEventListener('touchstart', (e) => {
+  //   e.preventDefault();
+  //   player.right();
+  // })
+  // right.addEventListener('touchend', (e) => {
+  //   e.preventDefault();
+  //   player.stop();
+  // })
+  // jump.addEventListener('touchstart', (e) => {
+  //   e.preventDefault();
+  //   player.jump();
+  // })
+  // left.addEventListener('mousedown', (e) => {
+  //   e.preventDefault();
+  //   player.left();
+  // })
+  // left.addEventListener('mouseup', (e) => {
+  //   e.preventDefault();
+  //   player.stop();
+  // })
+  // right.addEventListener('mousedown', (e) => {
+  //   e.preventDefault();
+  //   player.right();
+  // })
+  // right.addEventListener('mouseup', (e) => {
+  //   e.preventDefault();
+  //   player.stop();
+  // })
+  // jump.addEventListener('click', (e) => {
+  //   e.preventDefault();
+  //   player.jump();
+  // })
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (touchController);

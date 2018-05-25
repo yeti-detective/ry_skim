@@ -111,6 +111,160 @@ class Background extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
 /***/ }),
 
+/***/ "./scripts/controller.js":
+/*!*******************************!*\
+  !*** ./scripts/controller.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const controller = (player) => {
+  document.addEventListener('keydown', (e) => {
+    switch (e.code) {
+      case "ArrowRight":
+      case "KeyD":
+        player.sprite.facingLeft = false;
+        player.hVel += 15;
+        break;
+      case "ArrowLeft":
+      case "KeyA":
+        player.sprite.facingLeft = true;
+        player.hVel -= 15;
+        break;
+      case "Space":
+      case "ArrowUp":
+        player.vVel -= 20;
+        break;
+      default:
+        null
+    }
+  })
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (controller);
+
+
+/***/ }),
+
+/***/ "./scripts/game.js":
+/*!*************************!*\
+  !*** ./scripts/game.js ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Game; });
+/* harmony import */ var _sanik__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sanik */ "./scripts/sanik.js");
+/* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./background */ "./scripts/background.js");
+/* harmony import */ var _physics__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./physics */ "./scripts/physics.js");
+/* harmony import */ var _player__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./player */ "./scripts/player.js");
+/* harmony import */ var _controller__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./controller */ "./scripts/controller.js");
+
+
+
+
+
+
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+const sanik = new _sanik__WEBPACK_IMPORTED_MODULE_0__["default"](ctx);
+const player = new _player__WEBPACK_IMPORTED_MODULE_3__["default"](sanik);
+
+const background = new _background__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
+
+class Game {
+  constructor() {
+    this.player = player;
+    this.background = background;
+    this.physics = _physics__WEBPACK_IMPORTED_MODULE_2__["default"];
+
+    Object(_controller__WEBPACK_IMPORTED_MODULE_4__["default"])(this.player);
+  }
+
+  tick () {
+    debugger
+    this.player.sprite.update();
+    this.background.update();
+    this.physics(this.player);
+    this.render();
+  }
+
+  render() {
+    this.player.sprite.unRender();
+    this.background.unRender();
+    this.background.render();
+    this.player.sprite.render();
+  }
+}
+
+
+/***/ }),
+
+/***/ "./scripts/physics.js":
+/*!****************************!*\
+  !*** ./scripts/physics.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const physics = (player, world) => {
+  if (player.sprite.destY < 202) {
+    player.vVel += 5;
+  }
+  if (player.hVel > 0) {
+    player.hVel -= 10;
+  } else if (player.hVel < 0) {
+    player.hVel -= 10;
+  }
+  player.affect();
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (physics);
+
+
+/***/ }),
+
+/***/ "./scripts/player.js":
+/*!***************************!*\
+  !*** ./scripts/player.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Player; });
+class Player {
+  constructor(sprite) {
+    this.sprite = sprite;
+
+    this.hVel = 0;
+    this.vVel = 0;
+  }
+
+  affect () {
+    if (this.hVel < 5) {
+      this.sprite.chill();
+    } else {
+      this.sprite.walk();
+    }
+    this.sprite.moveVert(this.vVel);
+    this.sprite.moveHoriz(this.hVel);
+  }
+
+
+}
+
+
+/***/ }),
+
 /***/ "./scripts/sanik.js":
 /*!**************************!*\
   !*** ./scripts/sanik.js ***!
@@ -230,10 +384,10 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./background */ "./scripts/background.js");
-/* harmony import */ var _sanik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sanik */ "./scripts/sanik.js");
+/* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game.js */ "./scripts/game.js");
 // import Sprite from './sprite'
-
+// import Background from './background';
+// import Sanik from './sanik';
 
 
 const canvas = document.getElementById('canvas');
@@ -248,35 +402,38 @@ canvasSize();
 window.addEventListener('resize', () => {
   canvasSize();
 });
-const background = new _background__WEBPACK_IMPORTED_MODULE_0__["default"](ctx);
-const sanik = new _sanik__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
-let count = 0;
-let sanikActions = [
-  sanik.chill,
-  // sanik.flip,
-  sanik.walk,
-  // sanik.flip
-];
+// const background = new Background(ctx);
+// const sanik = new Sanik(ctx);
+// let count = 0;
+// let sanikActions = [
+//   sanik.chill,
+//   // sanik.flip,
+//   sanik.walk,
+//   // sanik.flip
+// ];
+
+const game = new _game_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
 window.addEventListener('load', () => {
-  sanik.chill();
+  // sanik.chill();
   setInterval(() => {
-    background.update();
-    sanik.update();
-    background.unRender();
-    sanik.unRender();
-    background.render();
-    sanik.render();
-    ++count;
-    if (count % 60 === 0) {
-      sanikActions[(count / 60) % sanikActions.length]();
-      if (sanikActions[(count / 60) % sanikActions.length] === undefined) {
-        console.log('whoopsie');
-      }
-    }
+    game.tick();
+    // background.update();
+    // sanik.update();
+    // background.unRender();
+    // sanik.unRender();
+    // background.render();
+    // sanik.render();
+    // ++count;
+    // if (count % 60 === 0) {
+    //   sanikActions[(count / 60) % sanikActions.length]();
+    //   if (sanikActions[(count / 60) % sanikActions.length] === undefined) {
+    //     console.log('whoopsie');
+    //   }
+    // }
   }, 1000 / 60);
 });
 
-window.sanik = sanik;
+// window.sanik = sanik;
 
 
 /***/ }),

@@ -30,7 +30,6 @@ export default class Sanik extends Sprite {
 
   animate() {
     if (this.animCount % this.speed === 0) {
-      console.log(this.flipped);
       if (this.flipped) {
         this.animArray = this.flipImage(this.animArray);
       }

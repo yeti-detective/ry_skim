@@ -30,7 +30,7 @@ export default class Sanik extends Sprite {
 
   animate() {
     if (this.flipped) {
-      this.facingLeft = !this.facingLeft
+      this.facingLeft = !this.facingLeft;
       this.flipped = false;
     }
     if (this.facingLeft) {
@@ -61,9 +61,8 @@ export default class Sanik extends Sprite {
       {x: 100, w: 30},
       {x: 130, w: 30}
     ];
-    this.leftAnimArr = this.flipImage(this.animArray)
+    this.leftAnimArr = this.flipImage(this.animArray);
     this.speed = 20;
-    this.animate();
   }
 
   walk () {
@@ -77,9 +76,8 @@ export default class Sanik extends Sprite {
       {x: 180, w: 35}
     ];
     this.animArray = walkArr.concat(walkArr.reverse());
-    this.leftAnimArr = this.flipImage(this.animArray)
-    this.speed = 10;
-    this.animate();
+    this.leftAnimArr = this.flipImage(this.animArray);
+    this.speed = 5;
   }
 
   // spin () {

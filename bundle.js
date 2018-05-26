@@ -236,7 +236,7 @@ const physics = (player, world) => {
     player.sprite.destY = 202;
   }
   player.affect();
-}
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (physics);
 
@@ -327,7 +327,7 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
     const settings = Object.assign({}, sonicOptions, options);
     super(ctx, settings);
     this.facingLeft = false;
-    this.animArray = [{x: 0, w: 0}];
+    this.animArray = [{x: 0, y:0, w: 0}];
 
     this.animate = this.animate.bind(this);
     this.chill = this.chill.bind(this);
@@ -337,16 +337,18 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   animate() {
     if (this.flipped) {
-      this.facingLeft = !this.facingLeft
+      this.facingLeft = !this.facingLeft;
       this.flipped = false;
     }
     if (this.facingLeft) {
       this.animArray = this.leftAnimArr;
     }
     if (this.animCount % this.speed === 0) {
-      this.sourceWidth = this.animArray[(this.animCount / this.speed) % this.animArray.length].w;
-      this.destWidth = this.sourceWidth;
-      this.sourceX = this.animArray[(this.animCount / this.speed) % this.animArray.length].x;
+      const animIndex = (this.animCount / this.speed) % this.animArray.length;
+      this.sourceWidth = this.animArray[animIndex].w;
+      this.destWidth = this.animArray[animIndex].w;
+      this.sourceX = this.animArray[animIndex].x;
+      this.sourceY = this.animArray[animIndex].y;
     }
   }
 
@@ -360,33 +362,31 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   chill () {
-    this.sourceY = 20;
+    // this.sourceY = 20;
     this.animArray = [
-      {x: 0, w: 30},
-      {x: 35, w: 30},
-      {x: 67, w: 30},
-      {x: 100, w: 30},
-      {x: 130, w: 30}
+      {x: 0, y: 20, w: 30},
+      {x: 35, y: 20, w: 30},
+      {x: 67, y: 20, w: 30},
+      {x: 100, y: 20, w: 30},
+      {x: 130, y: 20, w: 30}
     ];
-    this.leftAnimArr = this.flipImage(this.animArray)
+    this.leftAnimArr = this.flipImage(this.animArray);
     this.speed = 20;
-    this.animate();
   }
 
   walk () {
-    this.sourceY = 62;
+    // this.sourceY = 62;
     const walkArr = [
-      {x: 0, w: 30},
-      {x: 35, w: 34},
-      {x: 73, w: 30},
-      {x: 108, w: 30},
-      {x: 138, w: 31},
-      {x: 180, w: 35}
+      {x: 0, y: 62, w: 30},
+      {x: 35, y: 62, w: 34},
+      {x: 73, y: 62, w: 30},
+      {x: 108, y: 62, w: 30},
+      {x: 138, y: 62, w: 31},
+      {x: 180, y: 62, w: 35}
     ];
     this.animArray = walkArr.concat(walkArr.reverse());
-    this.leftAnimArr = this.flipImage(this.animArray)
-    this.speed = 10;
-    this.animate();
+    this.leftAnimArr = this.flipImage(this.animArray);
+    this.speed = 5;
   }
 
   // spin () {

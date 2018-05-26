@@ -15,11 +15,12 @@ body {
   display: flex;
 }
 #controller div {
-  height: 0;
-  width: 0;
   margin: auto;
 }
+
 #left {
+  height: 0;
+  width: 0;
   left: 0;
   border-right: 5em solid #6060c0;
   border-top: 2.5em solid transparent;
@@ -27,6 +28,8 @@ body {
 }
 
 #right {
+  height: 0;
+  width: 0;
   right: 0;
   border-left: 5em solid #6060c0;
   border-top: 2.5em solid transparent;
@@ -34,7 +37,16 @@ body {
 }
 
 #jump {
-  border-bottom: 5em solid #6060c0;
-  border-left: 2.5em solid transparent;
-  border-right: 2.5em solid transparent;
+  height: 5em;
+  width: 5em;
+  background: linear-gradient(#6060c0, #4040a0);
+  border-radius: 50%;
+}
+
+#jump h2 {
+  font-size: 4em;
+  margin: 0;
+  background: #800000; /*linear-gradient(#e00000; #800000);*/
+  -webkit-background-clip: text;
+  color: transparent;
 }

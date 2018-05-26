@@ -1,7 +1,7 @@
 const touchController = (player) => {
   const left = document.getElementById('left');
   const right = document.getElementById('right');
-  const jump = document.getElementById('jump');
+  const jump = document.getElementById('jumpButton');
 
   const controller = document.getElementById('controller');
 
@@ -16,6 +16,7 @@ const touchController = (player) => {
         break;
       case jump:
         player.jump();
+        break;
       default:
         null;
     }
@@ -30,7 +31,7 @@ const touchController = (player) => {
       default:
         null;
     }
-  })
+  });
 
   controller.addEventListener('touchstart', (e) => {
     e.preventDefault();
@@ -47,7 +48,7 @@ const touchController = (player) => {
       default:
         null;
     }
-  })
+  });
   controller.addEventListener('touchend', (e) => {
     e.preventDefault();
     switch (e.target) {
@@ -58,48 +59,7 @@ const touchController = (player) => {
       default:
         null;
     }
-  })
-  //
-  // left.addEventListener('touchstart', (e) => {
-  //   e.preventDefault();
-  //   player.left();
-  // })
-  // left.addEventListener('touchend', (e) => {
-  //   e.preventDefault();
-  //   player.stop();
-  // })
-  // right.addEventListener('touchstart', (e) => {
-  //   e.preventDefault();
-  //   player.right();
-  // })
-  // right.addEventListener('touchend', (e) => {
-  //   e.preventDefault();
-  //   player.stop();
-  // })
-  // jump.addEventListener('touchstart', (e) => {
-  //   e.preventDefault();
-  //   player.jump();
-  // })
-  // left.addEventListener('mousedown', (e) => {
-  //   e.preventDefault();
-  //   player.left();
-  // })
-  // left.addEventListener('mouseup', (e) => {
-  //   e.preventDefault();
-  //   player.stop();
-  // })
-  // right.addEventListener('mousedown', (e) => {
-  //   e.preventDefault();
-  //   player.right();
-  // })
-  // right.addEventListener('mouseup', (e) => {
-  //   e.preventDefault();
-  //   player.stop();
-  // })
-  // jump.addEventListener('click', (e) => {
-  //   e.preventDefault();
-  //   player.jump();
-  // })
-}
+  });
+};
 
 export default touchController;

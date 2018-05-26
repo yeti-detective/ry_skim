@@ -6,6 +6,6 @@ const physics = (player, world) => {
     player.sprite.destY = 202;
   }
   player.affect();
-}
+};
 
 export default physics;

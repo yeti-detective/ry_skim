@@ -20,7 +20,7 @@ export default class Sanik extends Sprite {
     const settings = Object.assign({}, sonicOptions, options);
     super(ctx, settings);
     this.facingLeft = false;
-    this.animArray = [{x: 0, w: 0}];
+    this.animArray = [{x: 0, y:0, w: 0}];
 
     this.animate = this.animate.bind(this);
     this.chill = this.chill.bind(this);
@@ -37,9 +37,11 @@ export default class Sanik extends Sprite {
       this.animArray = this.leftAnimArr;
     }
     if (this.animCount % this.speed === 0) {
-      this.sourceWidth = this.animArray[(this.animCount / this.speed) % this.animArray.length].w;
-      this.destWidth = this.sourceWidth;
-      this.sourceX = this.animArray[(this.animCount / this.speed) % this.animArray.length].x;
+      const animIndex = (this.animCount / this.speed) % this.animArray.length;
+      this.sourceWidth = this.animArray[animIndex].w;
+      this.destWidth = this.animArray[animIndex].w;
+      this.sourceX = this.animArray[animIndex].x;
+      this.sourceY = this.animArray[animIndex].y;
     }
   }
 
@@ -53,27 +55,27 @@ export default class Sanik extends Sprite {
   }
 
   chill () {
-    this.sourceY = 20;
+    // this.sourceY = 20;
     this.animArray = [
-      {x: 0, w: 30},
-      {x: 35, w: 30},
-      {x: 67, w: 30},
-      {x: 100, w: 30},
-      {x: 130, w: 30}
+      {x: 0, y: 20, w: 30},
+      {x: 35, y: 20, w: 30},
+      {x: 67, y: 20, w: 30},
+      {x: 100, y: 20, w: 30},
+      {x: 130, y: 20, w: 30}
     ];
     this.leftAnimArr = this.flipImage(this.animArray);
     this.speed = 20;
   }
 
   walk () {
-    this.sourceY = 62;
+    // this.sourceY = 62;
     const walkArr = [
-      {x: 0, w: 30},
-      {x: 35, w: 34},
-      {x: 73, w: 30},
-      {x: 108, w: 30},
-      {x: 138, w: 31},
-      {x: 180, w: 35}
+      {x: 0, y: 62, w: 30},
+      {x: 35, y: 62, w: 34},
+      {x: 73, y: 62, w: 30},
+      {x: 108, y: 62, w: 30},
+      {x: 138, y: 62, w: 31},
+      {x: 180, y: 62, w: 35}
     ];
     this.animArray = walkArr.concat(walkArr.reverse());
     this.leftAnimArr = this.flipImage(this.animArray);

@@ -18,6 +18,8 @@ header {
   height: 80px;
   margin: auto;
   display: flex;
+  position: fixed;
+  top: 600px;
 }
 #controller div {
   margin: auto;

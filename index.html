@@ -8,7 +8,15 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
   </head>
   <body>
-    <h1>Famous Videogame Sky R-hog...</h1>
+    <header>
+      <h1>Famous Videogame Sky R-hog...</h1>
+      <button
+        title="Song: Level 1, Artist: Monplaisir: https://chezmonplaisir.bandcamp.com/"
+        onclick="togglePlay()"
+      >
+        ♫
+      </button>
+    </header>
     <h2>Sanik the Skyhog of Copyright <em>UN</em> fringement!</h2>
     <div id="container">
       <canvas
@@ -26,5 +34,6 @@
     </div>
     </div>
     <script src="./bundle.js"></script>
+    <audio id="gameMusic" src="./assets/Monplaisir_-_04_-_Level_1.mp3" /></audio>
   </body>
 </html>

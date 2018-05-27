@@ -16,6 +16,13 @@ window.addEventListener('resize', () => {
   canvasSize();
 });
 
+// in game music
+const music = document.getElementById('gameMusic');
+const togglePlay = () => {
+  
+};
+// in game music
+
 const game = new Game();
 
 window.addEventListener('load', () => {

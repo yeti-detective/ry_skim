@@ -208,6 +208,7 @@ class Game {
     this.player.sprite.update();
     this.background.update();
     this.physics(this.player, this.world);
+    this.world.scrollBackground();
     this.render();
   }
 
@@ -678,10 +679,16 @@ class World {
 
   scrollBackground () {
     const dispWidth = this.background.context.canvas.width;
-    if (this.player.sprite.destX > (dispWidth * 0.8) &&
+    if (this.sprite.destX > (dispWidth * 0.8) &&
         this.background.sourceX + dispWidth < 2630) {
       this.background.sourceX += 7;
       this.sprite.destX -= 7;
+    } else if (
+      this.sprite.destX < (dispWidth * 0.2) &&
+      this.background.sourceX > 0
+    ) {
+      this.background.sourceX -= 7;
+      this.sprite.destX += 7;
     }
   }
 }

@@ -82,6 +82,10 @@ export default class Sanik extends Sprite {
     this.speed = 5;
   }
 
+  die () {
+    alert('Sanik has Died!');
+  }
+
   // spin () {
   //   this.sourceY = 20;
   //   const spinArr = [

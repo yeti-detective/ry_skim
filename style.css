@@ -3,6 +3,11 @@ body {
   color: #4040a0;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
 #container {
   width: 100%;
   text-align: center;
@@ -49,4 +54,14 @@ body {
   background: #800000; /*linear-gradient(#e00000; #800000);*/
   -webkit-background-clip: text;
   color: transparent;
+}
+
+button {
+  border: 0;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background: linear-gradient(#6060c0, #4040a0);
+  color: #e0e0e0;
+  font-size: 2em;
 }

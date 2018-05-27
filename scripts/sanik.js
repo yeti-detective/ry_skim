@@ -49,7 +49,8 @@ export default class Sanik extends Sprite {
     return arr.map((pos) => {
       return {
         x: 984 - (pos.x + pos.w),
-        w: pos.w
+        w: pos.w,
+        y: pos.y
       };
     });
   }

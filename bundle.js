@@ -267,10 +267,16 @@ class Player {
   }
 
   affect () {
-    if (this.hVel === 0) {
-      this.sprite.chill();
-    } else {
-      this.sprite.walk();
+    if (this.vVel === 0) {
+      if (this.hVel === 0) {
+        this.sprite.chill();
+      } else {
+        this.sprite.walk();
+      }
+    } else if (this.vVel > 0) {
+      this.sprite.jump();
+    } else if (this.vVel < 0) {
+      this.sprite.fall();
     }
     this.sprite.moveVert(this.vVel);
     this.sprite.moveHoriz(this.hVel);
@@ -368,7 +374,6 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   chill () {
-    // this.sourceY = 20;
     this.animArray = [
       {x: 0, y: 20, w: 30},
       {x: 35, y: 20, w: 30},
@@ -381,7 +386,6 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   walk () {
-    // this.sourceY = 62;
     const walkArr = [
       {x: 0, y: 62, w: 30},
       {x: 35, y: 62, w: 34},
@@ -397,6 +401,25 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
   die () {
     alert('Sanik has Died!');
+  }
+
+  jump () {
+    this.animArray = [
+      {x: 8, y: 255, w: 32},
+      {x: 42, y: 255, w: 33},
+      {x: 387, y: 13, w: 30}
+    ];
+    this.leftAnimArr = this.flipImage(this.animArray);
+    this.speed = 20;
+  }
+
+  fall () {
+    this.animArray = [
+      {x: 205, y: 150, w: 36},
+      {x: 242, y: 150, w: 38}
+    ];
+    this.leftAnimArr = this.flipImage(this.animArray);
+    this.speed = 20;
   }
 
   // spin () {

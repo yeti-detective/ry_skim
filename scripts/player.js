@@ -7,10 +7,16 @@ export default class Player {
   }
 
   affect () {
-    if (this.hVel === 0) {
-      this.sprite.chill();
-    } else {
-      this.sprite.walk();
+    if (this.vVel === 0) {
+      if (this.hVel === 0) {
+        this.sprite.chill();
+      } else {
+        this.sprite.walk();
+      }
+    } else if (this.vVel > 0) {
+      this.sprite.jump();
+    } else if (this.vVel < 0) {
+      this.sprite.fall();
     }
     this.sprite.moveVert(this.vVel);
     this.sprite.moveHoriz(this.hVel);

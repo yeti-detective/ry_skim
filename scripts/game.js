@@ -31,6 +31,7 @@ export default class Game {
     this.player.sprite.update();
     this.background.update();
     this.physics(this.player, this.world);
+    this.world.scrollBackground();
     this.render();
   }
 

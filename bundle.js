@@ -174,6 +174,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _player__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./player */ "./scripts/player.js");
 /* harmony import */ var _controller__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./controller */ "./scripts/controller.js");
 /* harmony import */ var _touch_controller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./touch_controller */ "./scripts/touch_controller.js");
+/* harmony import */ var _world__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./world */ "./scripts/world.js");
+
 
 
 
@@ -189,11 +191,14 @@ const player = new _player__WEBPACK_IMPORTED_MODULE_3__["default"](sanik);
 
 const background = new _background__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
 
+const world = new _world__WEBPACK_IMPORTED_MODULE_6__["default"](sanik, background);
+
 class Game {
   constructor() {
     this.player = player;
     this.background = background;
     this.physics = _physics__WEBPACK_IMPORTED_MODULE_2__["default"];
+    this.world = world;
 
     Object(_controller__WEBPACK_IMPORTED_MODULE_4__["default"])(this.player);
     Object(_touch_controller__WEBPACK_IMPORTED_MODULE_5__["default"])(this.player);
@@ -202,7 +207,7 @@ class Game {
   tick () {
     this.player.sprite.update();
     this.background.update();
-    this.physics(this.player);
+    this.physics(this.player, this.world);
     this.render();
   }
 
@@ -229,11 +234,11 @@ class Game {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 const physics = (player, world) => {
-  if (player.sprite.destY < 202) {
+  if (player.sprite.destY < world.ground) {
     player.vVel += 3;
-  } else if (player.sprite.destY > 202) {
+  } else if (player.sprite.destY > world.ground) {
     player.vVel = 0;
-    player.sprite.destY = 202;
+    player.sprite.destY = world.ground;
   }
   player.affect();
 };
@@ -356,7 +361,8 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
     return arr.map((pos) => {
       return {
         x: 984 - (pos.x + pos.w),
-        w: pos.w
+        w: pos.w,
+        y: pos.y
       };
     });
   }
@@ -387,6 +393,10 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
     this.animArray = walkArr.concat(walkArr.reverse());
     this.leftAnimArr = this.flipImage(this.animArray);
     this.speed = 5;
+  }
+
+  die () {
+    alert('Sanik has Died!');
   }
 
   // spin () {
@@ -602,6 +612,40 @@ const touchController = (player) => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (touchController);
+
+
+/***/ }),
+
+/***/ "./scripts/world.js":
+/*!**************************!*\
+  !*** ./scripts/world.js ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return World; });
+// starting platform: y: 202, x: 0 => 260
+
+class World {
+  constructor (sprite, background) {
+    this.sprite = sprite;
+    this.background = background;
+    this.ground = 202;
+    this.rBound = 2209;
+    this.relX = sprite.destX;
+  }
+
+  scrollBackground () {
+    const dispWidth = this.background.context.canvas.width;
+    if (this.player.sprite.destX > (dispWidth * 0.8) &&
+        this.background.sourceX + dispWidth < 2630) {
+      this.background.sourceX += 7;
+      this.sprite.destX -= 7;
+    }
+  }
+}
 
 
 /***/ })

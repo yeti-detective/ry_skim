@@ -469,6 +469,22 @@ window.addEventListener('load', () => {
   setInterval(() => {
     game.tick();
   }, 1000 / 60);
+
+  // in game music
+  const music = document.getElementById('gameMusic');
+  document.getElementById('playButton').addEventListener('click', () => {
+    togglePlay(music);
+  });
+  const togglePlay = (music) => {
+    if (music.duration > 0 && music.currentTime > 0) {
+      music.pause();
+      music.currentTime = 0;
+    } else {
+      music.currentTime = 0;
+      music.play();
+    }
+  };
+  // in game music
 });
 
 

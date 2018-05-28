@@ -678,11 +678,6 @@ class World {
 
   getSanikPos () {
     return this.sprite.destX + this.background.sourceX;
-    // for dev
-    container = document.getElementById('container');
-    container.append(this.sprite.destX + this.background.sourceX);
-
-    // for dev
   }
 
   scrollBackground () {
@@ -717,20 +712,30 @@ class World {
       (sanikPos > 1921 && sanikPos < 1950) ||
       (sanikPos > 2017 && sanikPos < 2060) ) {
       this.ground = 300;
-    } else {
-      this.ground = 168;
     }
   }
 
   checkForPlatform () {
     const sanikPos = this.getSanikPos();
-    if (
+    if (sanikPos <= 255) {
+      this.ground = 167;
+    } else if (
       (sanikPos >= 270 && sanikPos <= 353) ||
       (sanikPos >= 512 && sanikPos <= 560)
     ) {
-      debugger
-      this.ground = 184;
-    }
+      this.ground = 152;
+    } else if (
+      (sanikPos >= 397 && sanikPos <= 495) &&
+      (this.sprite.destY + this.sprite.destHeight < 70)
+    ) {
+        this.ground = 35;
+    } else if (
+      (sanikPos >= 386 && sanikPos <= 512) ||
+      (sanikPos >= 1857 && sanikPos <= 1918) ||
+      (sanikPos >= 1953 && sanikPos <= 2016)
+    ) {
+      this.ground = 101;
+    } //else if () {}
   }
 
   checkForWin () {
@@ -770,6 +775,7 @@ class World {
   processWorld () {
     this.scrollBackground();
     this.checkForFall();
+    this.checkForPlatform();
     this.checkForWin();
     this.checkForDie();
   }

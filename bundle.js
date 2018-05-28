@@ -96,7 +96,7 @@ const bgDefaults = {
   destX: 0,
   destY: 0,
   destWidth: 900,
-  destHeight: 360
+  destHeight: 307
 };
 
 class Background extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
@@ -208,7 +208,7 @@ class Game {
     this.player.sprite.update();
     this.background.update();
     this.physics(this.player, this.world);
-    this.world.scrollBackground();
+    this.world.processWorld();
     this.render();
   }
 
@@ -325,7 +325,7 @@ sanikImg.src = "./assets/sonic.png";
 const sonicOptions = {
   image: sanikImg,
   sourceX: 0,
-  sourceY: 0,
+  sourceY: 20,
   sourceWidth: 30,
   sourceHeight: 40,
   destX: 85,
@@ -672,7 +672,7 @@ class World {
   constructor (sprite, background) {
     this.sprite = sprite;
     this.background = background;
-    this.ground = 202;
+    this.ground = 168;
     this.rBound = 2209;
     this.relX = sprite.destX;
   }
@@ -690,6 +690,33 @@ class World {
       this.background.sourceX -= 7;
       this.sprite.destX += 7;
     }
+  }
+
+  checkForFall () {
+    const sanikPos = this.sprite.destX + this.background.sourceX;
+    if (
+      (sanikPos > 255 && sanikPos < 270) ||
+      (sanikPos > 353 && sanikPos < 368) ||
+      (sanikPos > 753 && sanikPos < 792) ||
+      (sanikPos > 864 && sanikPos < 941) ||
+      (sanikPos > 1024 && sanikPos < 1036) ||
+      (sanikPos > 1168 && sanikPos < 1218) ||
+      (sanikPos > 1312 && sanikPos < 1380) ||
+      (sanikPos > 1417 && sanikPos < 1515) ||
+      (sanikPos > 1543 && sanikPos < 1565) ||
+      (sanikPos > 1633 && sanikPos < 1660) ||
+      (sanikPos > 1793 && sanikPos < 1804) ||
+      (sanikPos > 1921 && sanikPos < 1950) ||
+      (sanikPos > 2017 && sanikPos < 2060) ) {
+      this.ground = 300;
+    } else {
+      this.ground = 168;
+    }
+  }
+
+  processWorld () {
+    this.scrollBackground();
+    this.checkForFall();
   }
 }
 

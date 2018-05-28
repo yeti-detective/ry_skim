@@ -6,10 +6,17 @@ export default class World {
     this.background = background;
     this.ground = 168;
     this.rBound = 2209;
+
+    this.reset = this.reset.bind(this);
   }
 
   getSanikPos () {
     return this.sprite.destX + this.background.sourceX;
+    // for dev
+    container = document.getElementById('container');
+    container.append(this.sprite.destX + this.background.sourceX);
+
+    // for dev
   }
 
   scrollBackground () {
@@ -49,20 +56,55 @@ export default class World {
     }
   }
 
+  checkForPlatform () {
+    const sanikPos = this.getSanikPos();
+    if (
+      (sanikPos >= 270 && sanikPos <= 353) ||
+      (sanikPos >= 512 && sanikPos <= 560)
+    ) {
+      debugger
+      this.ground = 184;
+    }
+  }
+
   checkForWin () {
     const sanikPos = this.getSanikPos();
     if (sanikPos >= 2546 && this.sprite.destY <= this.ground) {
-      if (confirm('Congratulations! You win!')) {
-        window.location.href = window.location.href;
-      } else {
-        window.location.href = window.location.href;
-      }
+      const container = document.getElementById('container');
+      container.innerHTML = '<h2>Congratulations! You won!</h2>'
+      gameOverButton();
     }
+  }
+
+  checkForDie () {
+    if (this.sprite.destY > 250) {
+      window.clearInterval(gameLoop);
+      const container = document.getElementById('container');
+      container.innerHTML = '<h2>Oh no! You died!</h2>'
+      this.gameOverButton();
+    }
+  }
+
+  reset () {
+    window.location.href = window.location.href;
+  }
+
+  gameOverButton() {
+    const btn = document.createElement('button');
+    const form = document.createElement('form');
+    // btn.style = 'submit';
+    btn.innerText = 'Start Over';
+    btn.style = 'width: 25%; height: 150px; border-radius: 10px;';
+    form.onsubmit = this.reset;
+    form.append(btn);
+    container.append(form);
+    btn.focus();
   }
 
   processWorld () {
     this.scrollBackground();
     this.checkForFall();
     this.checkForWin();
+    this.checkForDie();
   }
 }

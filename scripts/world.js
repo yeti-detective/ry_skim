@@ -69,7 +69,22 @@ export default class World {
       (sanikPos >= 1953 && sanikPos <= 2016)
     ) {
       this.ground = 101;
-    } //else if () {}
+    } else if (
+      (sanikPos >= 561 && sanikPos <= 640)
+    ) {
+      this.ground = 85;
+    } else if (
+      (sanikPos >= 642 && sanikPos <= 753)
+    ) {
+      this.ground = 20;
+    } else if (
+      (sanikPos >= 801 && sanikPos <= 862) ||
+      (sanikPos >= 945 && sanikPos <= 1023) ||
+      (sanikPos >= 1044 && sanikPos <= 1120) ||
+      (sanikPos >= 1808 && sanikPos <= 1857)
+    ) {
+      this.ground = 165;
+    }
   }
 
   checkForWin () {

@@ -6,7 +6,10 @@ export default class World {
     this.background = background;
     this.ground = 168;
     this.rBound = 2209;
-    this.relX = sprite.destX;
+  }
+
+  getSanikPos () {
+    return this.sprite.destX + this.background.sourceX;
   }
 
   scrollBackground () {
@@ -25,7 +28,7 @@ export default class World {
   }
 
   checkForFall () {
-    const sanikPos = this.sprite.destX + this.background.sourceX;
+    const sanikPos = this.getSanikPos();
     if (
       (sanikPos > 255 && sanikPos < 270) ||
       (sanikPos > 353 && sanikPos < 368) ||
@@ -46,8 +49,20 @@ export default class World {
     }
   }
 
+  checkForWin () {
+    const sanikPos = this.getSanikPos();
+    if (sanikPos >= 2546 && this.sprite.destY <= this.ground) {
+      if (confirm('Congratulations! You win!')) {
+        window.location.href = window.location.href;
+      } else {
+        window.location.href = window.location.href;
+      }
+    }
+  }
+
   processWorld () {
     this.scrollBackground();
     this.checkForFall();
+    this.checkForWin();
   }
 }

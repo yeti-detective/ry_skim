@@ -6,6 +6,8 @@ const physics = (player, world) => {
     } else {
       player.vVel += 3;
     }
+  } else if (player.sprite.destY > world.ground) {
+    player.vVel += 3;
   }
   player.affect();
 };

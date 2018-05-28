@@ -242,6 +242,8 @@ const physics = (player, world) => {
     } else {
       player.vVel += 3;
     }
+  } else if (player.sprite.destY > world.ground) {
+    player.vVel += 3;
   }
   player.affect();
 };
@@ -331,7 +333,7 @@ const sonicOptions = {
   sourceWidth: 30,
   sourceHeight: 40,
   destX: 85,
-  destY: 168,
+  destY: 140,
   destWidth: 30,
   destHeight: 40
 };
@@ -737,7 +739,22 @@ class World {
       (sanikPos >= 1953 && sanikPos <= 2016)
     ) {
       this.ground = 101;
-    } //else if () {}
+    } else if (
+      (sanikPos >= 561 && sanikPos <= 640)
+    ) {
+      this.ground = 85;
+    } else if (
+      (sanikPos >= 642 && sanikPos <= 753)
+    ) {
+      this.ground = 20;
+    } else if (
+      (sanikPos >= 801 && sanikPos <= 862) ||
+      (sanikPos >= 945 && sanikPos <= 1023) ||
+      (sanikPos >= 1044 && sanikPos <= 1120) ||
+      (sanikPos >= 1808 && sanikPos <= 1857)
+    ) {
+      this.ground = 165;
+    }
   }
 
   checkForWin () {

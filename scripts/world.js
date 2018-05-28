@@ -123,6 +123,7 @@ export default class World {
   checkForWin () {
     const sanikPos = this.getSanikPos();
     if (sanikPos >= 2546 && this.sprite.destY <= this.ground) {
+      window.clearInterval(gameLoop);
       const container = document.getElementById('container');
       container.innerHTML = '<h2>Congratulations! You won!</h2>'
       this.gameOverButton();

@@ -1,6 +1,3 @@
-// import Sprite from './sprite'
-// import Background from './background';
-// import Sanik from './sanik';
 import Game from './game.js';
 
 const canvas = document.getElementById('canvas');
@@ -19,9 +16,10 @@ window.addEventListener('resize', () => {
 const game = new Game();
 
 window.addEventListener('load', () => {
-  setInterval(() => {
+  const gameLoop = setInterval(() => {
     game.tick();
   }, 1000 / 60);
+  window.gameLoop  = gameLoop;
 
   // in game music
   const music = document.getElementById('gameMusic');

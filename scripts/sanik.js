@@ -6,7 +6,7 @@ sanikImg.src = "./assets/sonic.png";
 const sonicOptions = {
   image: sanikImg,
   sourceX: 0,
-  sourceY: 0,
+  sourceY: 20,
   sourceWidth: 30,
   sourceHeight: 40,
   destX: 85,

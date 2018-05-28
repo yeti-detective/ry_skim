@@ -12,7 +12,7 @@ const bgDefaults = {
   destX: 0,
   destY: 0,
   destWidth: 900,
-  destHeight: 360
+  destHeight: 307
 };
 
 export default class Background extends Sprite {

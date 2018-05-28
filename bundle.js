@@ -735,6 +735,7 @@ class World {
         this.ground = 35;
     } else if (
       (sanikPos >= 386 && sanikPos <= 512) ||
+      (sanikPos >= 1120 && sanikPos <= 1168) ||
       (sanikPos >= 1857 && sanikPos <= 1918) ||
       (sanikPos >= 1953 && sanikPos <= 2016)
     ) {
@@ -754,6 +755,38 @@ class World {
       (sanikPos >= 1808 && sanikPos <= 1857)
     ) {
       this.ground = 165;
+    } else if (
+      (sanikPos >= 1216 && sanikPos <= 1312)
+    ) {
+      this.ground = 53;
+    } else if (
+      (sanikPos >= 1338 && sanikPos <= 1366)
+    ) {
+      this.ground = 81;
+    } else if (
+      (sanikPos >= 1388 && sanikPos <= 1416)
+    ) {
+      this.ground = 70;
+    } else if (
+      (sanikPos >= 1514 && sanikPos <= 1544)
+    ) {
+      this.ground = 145;
+    } else if (
+      (sanikPos >= 1568 && sanikPos <= 1634)
+    ) {
+      this.ground = 131;
+    } else if (
+      (sanikPos >= 1664 && sanikPos <= 1794)
+    ) {
+      this.ground = 73;
+    } else if (
+      (sanikPos >= 1809 && sanikPos <= 1857)
+    ) {
+      this.ground = 161;
+    } else if (
+      (sanikPos >= 2066 && sanikPos <= 2630)
+    ) {
+      this.ground = 167;
     }
   }
 
@@ -762,7 +795,7 @@ class World {
     if (sanikPos >= 2546 && this.sprite.destY <= this.ground) {
       const container = document.getElementById('container');
       container.innerHTML = '<h2>Congratulations! You won!</h2>'
-      gameOverButton();
+      this.gameOverButton();
     }
   }
 

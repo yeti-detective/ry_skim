@@ -219,6 +219,8 @@ class Game {
     this.background.sourceWidth = ctx.canvas.width;
     this.background.render();
     this.player.sprite.render();
+    ctx.font = "15px Arial";
+    ctx.fillText(`${this.player.sprite.destX}, ${this.player.sprite.destY}`, 15, 15)
   }
 }
 
@@ -730,7 +732,7 @@ class World {
       this.ground = 152;
     } else if (
       (sanikPos >= 397 && sanikPos <= 495) &&
-      (this.sprite.destY + this.sprite.destHeight < 70)
+      (this.sprite.destY + this.sprite.destHeight < 75)
     ) {
         this.ground = 35;
     } else if (

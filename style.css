@@ -1,5 +1,13 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  padding: 5px;
+}
+
 body {
   font-family: 'Ubuntu', sans-sans-serif;
+  background: linear-gradient(#e0a080, #4040a0);
+  background-size: cover;
   color: #4040a0;
 }
 
@@ -20,6 +28,9 @@ header {
   display: flex;
   position: fixed;
   top: 600px;
+  background-image: url(./assets/background.png);
+  background-repeat: space;
+  height: 141px;
 }
 #controller div {
   margin: auto;

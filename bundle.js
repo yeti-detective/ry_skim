@@ -238,6 +238,7 @@ class Game {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 const physics = (player, world) => {
+  // gravity and ground
   if (player.sprite.destY < world.ground) {
     if (player.sprite.destY + (player.vVel + 3) >= world.ground) {
       player.vVel = 0;
@@ -247,6 +248,12 @@ const physics = (player, world) => {
     }
   } else if (player.sprite.destY > world.ground) {
     player.vVel += 1;
+  }
+  // right and left barriers
+  if (player.sprite.destX <= world.left) {
+    player.sprite.destX += 7;
+  } else if (player.sprite.destX >= world.right) {
+    player.sprite.destX -= 7;
   }
   player.affect();
 };
@@ -679,6 +686,8 @@ class World {
     this.background = background;
     this.ground = 168;
     this.rBound = 2209;
+    this.left = 0;
+    this.right = 2209 - background.sourceX;
 
     this.reset = this.reset.bind(this);
   }
@@ -797,6 +806,14 @@ class World {
       (sanikPos >= 2066 && sanikPos <= 2630)
     ) {
       this.ground = 167;
+    }
+  }
+
+  checkForBarrier () {
+    const sanikLeft = this.getSanikPos();
+    const sanikRight = this.getSanikPos() + this.sprite.destWidth;
+    if (sanikLeft = 0) {
+      this.left = 0;
     }
   }
 

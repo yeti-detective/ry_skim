@@ -6,6 +6,8 @@ export default class World {
     this.background = background;
     this.ground = 168;
     this.rBound = 2209;
+    this.left = 0;
+    this.right = 2209 - background.sourceX;
 
     this.reset = this.reset.bind(this);
   }
@@ -124,6 +126,14 @@ export default class World {
       (sanikPos >= 2066 && sanikPos <= 2630)
     ) {
       this.ground = 167;
+    }
+  }
+
+  checkForBarrier () {
+    const sanikLeft = this.getSanikPos();
+    const sanikRight = this.getSanikPos() + this.sprite.destWidth;
+    if (sanikLeft = 0) {
+      this.left = 0;
     }
   }
 

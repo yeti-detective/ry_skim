@@ -220,7 +220,8 @@ class Game {
     this.background.render();
     this.player.sprite.render();
     ctx.font = "15px Arial";
-    ctx.fillText(`${this.player.sprite.destX}, ${this.player.sprite.destY}`, 15, 15)
+    ctx.fillText(`${this.player.sprite.destX}, ${this.player.sprite.destY}`, 15, 15);
+    ctx.fillText(`${this.world.ground}`, 15, 35);
   }
 }
 
@@ -242,10 +243,10 @@ const physics = (player, world) => {
       player.vVel = 0;
       player.sprite.destY = world.ground;
     } else {
-      player.vVel += 3;
+      player.vVel += 1;
     }
   } else if (player.sprite.destY > world.ground) {
-    player.vVel += 3;
+    player.vVel += 1;
   }
   player.affect();
 };
@@ -300,7 +301,7 @@ class Player {
   }
 
   jump () {
-    this.vVel -= 30;
+    this.vVel -= 15;
   }
 
   stop () {
@@ -736,7 +737,8 @@ class World {
     ) {
         this.ground = 35;
     } else if (
-      (sanikPos >= 386 && sanikPos <= 512) ||
+      (sanikPos >= 386 && sanikPos <= 512 &&
+      this.sprite.destY + this.sprite.destHeight > 75) ||
       (sanikPos >= 1120 && sanikPos <= 1168) ||
       (sanikPos >= 1857 && sanikPos <= 1918) ||
       (sanikPos >= 1953 && sanikPos <= 2016)
@@ -751,8 +753,14 @@ class World {
     ) {
       this.ground = 20;
     } else if (
+      (sanikPos > 962 && sanikPos <= 1026 &&
+      this.sprite.destY + this.sprite.destHeight < 75)
+    ) {
+      this.ground = 35
+    } else if (
       (sanikPos >= 801 && sanikPos <= 862) ||
-      (sanikPos >= 945 && sanikPos <= 1023) ||
+      (sanikPos >= 945 && sanikPos <= 1023 &&
+      this.sprite.destY + this.sprite.destHeight > 75) ||
       (sanikPos >= 1044 && sanikPos <= 1120) ||
       (sanikPos >= 1808 && sanikPos <= 1857)
     ) {
@@ -818,7 +826,6 @@ class World {
   gameOverButton() {
     const btn = document.createElement('button');
     const form = document.createElement('form');
-    // btn.style = 'submit';
     btn.innerText = 'Start Over';
     btn.style = 'width: 25%; height: 150px; border-radius: 10px;';
     form.onsubmit = this.reset;

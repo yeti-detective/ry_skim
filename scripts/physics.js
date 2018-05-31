@@ -4,10 +4,10 @@ const physics = (player, world) => {
       player.vVel = 0;
       player.sprite.destY = world.ground;
     } else {
-      player.vVel += 3;
+      player.vVel += 1;
     }
   } else if (player.sprite.destY > world.ground) {
-    player.vVel += 3;
+    player.vVel += 1;
   }
   player.affect();
 };

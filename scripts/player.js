@@ -33,7 +33,7 @@ export default class Player {
   }
 
   jump () {
-    this.vVel -= 30;
+    this.vVel -= 15;
   }
 
   stop () {

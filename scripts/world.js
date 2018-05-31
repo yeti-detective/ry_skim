@@ -146,7 +146,6 @@ export default class World {
   gameOverButton() {
     const btn = document.createElement('button');
     const form = document.createElement('form');
-    // btn.style = 'submit';
     btn.innerText = 'Start Over';
     btn.style = 'width: 25%; height: 150px; border-radius: 10px;';
     form.onsubmit = this.reset;

@@ -10,3 +10,8 @@
 ***
 ### About this project
 > Sanik the Skyrim is built entirely with vanilla JavaScript, HTML5 canvas, and CSS.
+
+***
+### In Development
+* Coming soon: Inky, Pinky, Blinky, & Clyde!
+![dem ghosts](./screenshots/them_ghost_bois.png)

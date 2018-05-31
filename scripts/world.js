@@ -60,7 +60,7 @@ export default class World {
       this.ground = 152;
     } else if (
       (sanikPos >= 397 && sanikPos <= 495) &&
-      (this.sprite.destY + this.sprite.destHeight < 70)
+      (this.sprite.destY + this.sprite.destHeight < 75)
     ) {
         this.ground = 35;
     } else if (

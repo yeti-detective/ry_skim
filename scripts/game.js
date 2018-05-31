@@ -42,5 +42,7 @@ export default class Game {
     this.background.sourceWidth = ctx.canvas.width;
     this.background.render();
     this.player.sprite.render();
+    ctx.font = "15px Arial";
+    ctx.fillText(`${this.player.sprite.destX}, ${this.player.sprite.destY}`, 15, 15)
   }
 }

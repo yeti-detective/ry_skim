@@ -8,4 +8,5 @@
 
 ![MuShRoOm KiNgDoM](./screenshots/screen_shot.png)
 ***
-###
+### About this project
+> Sanik the Skyrim is built entirely with vanilla JavaScript, HTML5 canvas, and CSS.

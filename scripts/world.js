@@ -64,7 +64,8 @@ export default class World {
     ) {
         this.ground = 35;
     } else if (
-      (sanikPos >= 386 && sanikPos <= 512) ||
+      (sanikPos >= 386 && sanikPos <= 512 &&
+      this.sprite.destY + this.sprite.destHeight > 75) ||
       (sanikPos >= 1120 && sanikPos <= 1168) ||
       (sanikPos >= 1857 && sanikPos <= 1918) ||
       (sanikPos >= 1953 && sanikPos <= 2016)
@@ -79,8 +80,14 @@ export default class World {
     ) {
       this.ground = 20;
     } else if (
+      (sanikPos > 962 && sanikPos <= 1026 &&
+      this.sprite.destY + this.sprite.destHeight < 75)
+    ) {
+      this.ground = 35
+    } else if (
       (sanikPos >= 801 && sanikPos <= 862) ||
-      (sanikPos >= 945 && sanikPos <= 1023) ||
+      (sanikPos >= 945 && sanikPos <= 1023 &&
+      this.sprite.destY + this.sprite.destHeight > 75) ||
       (sanikPos >= 1044 && sanikPos <= 1120) ||
       (sanikPos >= 1808 && sanikPos <= 1857)
     ) {

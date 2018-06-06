@@ -33,7 +33,9 @@ export default class Player {
   }
 
   jump () {
-    this.vVel -= 15;
+    if (this.sprite.destY > 0) {
+      this.vVel -= 15;
+    }
   }
 
   stop () {

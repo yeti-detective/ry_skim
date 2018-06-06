@@ -55,9 +55,6 @@ export default class Game {
   }
 
   tick () {
-    // this.player.sprite.update();
-    // this.background.update();
-    // this.inky.update();
     this.spriteArr.forEach((sprite) => {
       sprite.update();
     })
@@ -67,17 +64,11 @@ export default class Game {
   }
 
   render() {
-    // this.player.sprite.unRender();
-    // this.inky.unRender();
-    // this.background.unRender();
     this.spriteArr.forEach((sprite) => {
       sprite.unRender();
     })
     this.background.destWidth = ctx.canvas.width;
     this.background.sourceWidth = ctx.canvas.width;
-    // this.background.render();
-    // this.inky.render();
-    // this.player.sprite.render();
     this.spriteRenderOrder.forEach((sprite) => {
       sprite.render();
     })

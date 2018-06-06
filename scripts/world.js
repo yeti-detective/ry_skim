@@ -1,13 +1,16 @@
 // starting platform: y: 202, x: 0 => 260
 
 export default class World {
-  constructor (sprite, background) {
+  constructor (sprite, background, ghosts) {
     this.sprite = sprite;
     this.background = background;
+    this.ghosts = ghosts;
     this.ground = 168;
     this.rBound = 2209;
     this.left = 0;
     this.right = 2209 - background.sourceX;
+
+    this.ghostSlider = 0;
 
     this.reset = this.reset.bind(this);
   }
@@ -57,7 +60,7 @@ export default class World {
       this.ground = 167;
     } else if (
       (sanikPos >= 270 && sanikPos <= 353) ||
-      (sanikPos >= 512 && sanikPos <= 560)
+      (sanikPos >= 492 && sanikPos <= 560)
     ) {
       this.ground = 152;
     } else if (
@@ -74,11 +77,11 @@ export default class World {
     ) {
       this.ground = 101;
     } else if (
-      (sanikPos >= 561 && sanikPos <= 640)
+      (sanikPos >= 561 && sanikPos <= 624)
     ) {
       this.ground = 85;
     } else if (
-      (sanikPos >= 642 && sanikPos <= 753)
+      (sanikPos >= 624 && sanikPos <= 753)
     ) {
       this.ground = 20;
     } else if (
@@ -93,7 +96,7 @@ export default class World {
       (sanikPos >= 1044 && sanikPos <= 1120) ||
       (sanikPos >= 1808 && sanikPos <= 1857)
     ) {
-      this.ground = 165;
+      this.ground = 167;
     } else if (
       (sanikPos >= 1216 && sanikPos <= 1312)
     ) {
@@ -117,7 +120,7 @@ export default class World {
     } else if (
       (sanikPos >= 1664 && sanikPos <= 1794)
     ) {
-      this.ground = 73;
+      this.ground = 74;
     } else if (
       (sanikPos >= 1809 && sanikPos <= 1857)
     ) {
@@ -156,7 +159,15 @@ export default class World {
     }
   }
 
-  reset () {
+  moveGhost () {
+    this.ghosts.forEach((ghost) => {
+      ghost.destX += this.ghostSlider;
+    })
+    this.ghostSlider += 5
+  }
+
+  reset (e) {
+    e.preventDefault();
     window.location.href = window.location.href;
   }
 

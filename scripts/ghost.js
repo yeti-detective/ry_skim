@@ -9,8 +9,8 @@ export const blinkySettings = {
   sourceY: 2,
   sourceWidth: 14,
   sourceHeight: 14,
-  destX: 5,
-  destY: 5,
+  destX: 725,
+  destY: 30,
   destWidth: 20,
   destHeight: 20
 };

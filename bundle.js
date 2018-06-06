@@ -199,7 +199,7 @@ const clyde = new _ghost__WEBPACK_IMPORTED_MODULE_1__["default"](ctx, _ghost__WE
 
 const background = new _background__WEBPACK_IMPORTED_MODULE_2__["default"](ctx);
 
-const world = new _world__WEBPACK_IMPORTED_MODULE_7__["default"](sanik, background);
+const world = new _world__WEBPACK_IMPORTED_MODULE_7__["default"](sanik, background, [inky, blinky, pinky, clyde]);
 
 class Game {
   constructor() {
@@ -246,7 +246,8 @@ class Game {
       sprite.render();
     })
     ctx.font = "15px Arial";
-    ctx.fillText(`${this.player.sprite.destX + this.world.background.sourceX}, ${this.player.sprite.destY}`, 15, 15);
+    ctx.fillText(`${this.player.sprite.destX + this.world.background.sourceX},` +
+      ` ${this.player.sprite.destY}`, 15, 15);
     ctx.fillText(`${this.world.ground}`, 15, 35);
   }
 }
@@ -280,8 +281,8 @@ const blinkySettings = {
   sourceY: 2,
   sourceWidth: 14,
   sourceHeight: 14,
-  destX: 5,
-  destY: 5,
+  destX: 725,
+  destY: 30,
   destWidth: 20,
   destHeight: 20
 };
@@ -761,8 +762,6 @@ const touchController = (player) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return World; });
-// starting platform: y: 202, x: 0 => 260
-
 class World {
   constructor (sprite, background, ghosts) {
     this.sprite = sprite;
@@ -772,8 +771,8 @@ class World {
     this.rBound = 2209;
     this.left = 0;
     this.right = 2209 - background.sourceX;
-
-    this.ghostSlider = 0;
+    this.ghostDir = 1;
+    this.ghostSlider = 0
 
     this.reset = this.reset.bind(this);
   }
@@ -923,10 +922,16 @@ class World {
   }
 
   moveGhost () {
-    this.ghosts.forEach((ghost) => {
-      ghost.destX += this.ghostSlider;
-    })
-    this.ghostSlider += 5
+    if (this.sprite.animCount % 15 === 0) {
+      if (this.ghostSlider % 100 === 0) {
+        console.log(this.ghostSlider);
+        this.ghostDir *= -1;
+      }
+      this.ghosts.forEach((ghost) => {
+        ghost.destX += 3 * this.ghostDir;
+      })
+      this.ghostSlider += 5 * this.ghostDir;
+    }
   }
 
   reset (e) {
@@ -947,6 +952,7 @@ class World {
 
   processWorld () {
     this.scrollBackground();
+    this.moveGhost();
     this.checkForFall();
     this.checkForPlatform();
     this.checkForWin();

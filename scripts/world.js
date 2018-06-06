@@ -1,5 +1,3 @@
-// starting platform: y: 202, x: 0 => 260
-
 export default class World {
   constructor (sprite, background, ghosts) {
     this.sprite = sprite;
@@ -9,8 +7,8 @@ export default class World {
     this.rBound = 2209;
     this.left = 0;
     this.right = 2209 - background.sourceX;
-
-    this.ghostSlider = 0;
+    this.ghostDir = 1;
+    this.ghostSlider = 0
 
     this.reset = this.reset.bind(this);
   }
@@ -160,10 +158,16 @@ export default class World {
   }
 
   moveGhost () {
-    this.ghosts.forEach((ghost) => {
-      ghost.destX += this.ghostSlider;
-    })
-    this.ghostSlider += 5
+    if (this.sprite.animCount % 15 === 0) {
+      if (this.ghostSlider % 100 === 0) {
+        console.log(this.ghostSlider);
+        this.ghostDir *= -1;
+      }
+      this.ghosts.forEach((ghost) => {
+        ghost.destX += 3 * this.ghostDir;
+      })
+      this.ghostSlider += 5 * this.ghostDir;
+    }
   }
 
   reset (e) {
@@ -184,6 +188,7 @@ export default class World {
 
   processWorld () {
     this.scrollBackground();
+    this.moveGhost();
     this.checkForFall();
     this.checkForPlatform();
     this.checkForWin();

@@ -208,29 +208,52 @@ class Game {
     this.physics = _physics__WEBPACK_IMPORTED_MODULE_3__["default"];
     this.world = world;
     this.inky = inky;
+    this.blinky = blinky;
+    this.pinky = pinky;
+    this.clyde = clyde;
+
+    this.spriteArr = [
+      this.player.sprite,
+      this.inky,
+      this.blinky,
+      this.pinky,
+      this.clyde,
+      this.background,
+    ]
+
+    this.spriteRenderOrder = this.spriteArr.reverse();
 
     Object(_controller__WEBPACK_IMPORTED_MODULE_5__["default"])(this.player);
     Object(_touch_controller__WEBPACK_IMPORTED_MODULE_6__["default"])(this.player);
   }
 
   tick () {
-    this.player.sprite.update();
-    this.background.update();
-    this.inky.update();
+    // this.player.sprite.update();
+    // this.background.update();
+    // this.inky.update();
+    this.spriteArr.forEach((sprite) => {
+      sprite.update();
+    })
     this.physics(this.player, this.world);
     this.world.processWorld();
     this.render();
   }
 
   render() {
-    this.player.sprite.unRender();
-    this.inky.unRender();
-    this.background.unRender();
+    // this.player.sprite.unRender();
+    // this.inky.unRender();
+    // this.background.unRender();
+    this.spriteArr.forEach((sprite) => {
+      sprite.unRender();
+    })
     this.background.destWidth = ctx.canvas.width;
     this.background.sourceWidth = ctx.canvas.width;
-    this.background.render();
-    this.inky.render();
-    this.player.sprite.render();
+    // this.background.render();
+    // this.inky.render();
+    // this.player.sprite.render();
+    this.spriteRenderOrder.forEach((sprite) => {
+      sprite.render();
+    })
     ctx.font = "15px Arial";
     // ctx.fillText(`${this.player.sprite.destX}, ${this.player.sprite.destY}`, 15, 15);
     // ctx.fillText(`${this.world.ground}`, 15, 35);
@@ -272,9 +295,9 @@ const blinkySettings = {
   destHeight: 20
 };
 
-const pinkySettings = Object.assign({}, blinkySettings, {sourceY: 18});
-const inkySettings = Object.assign({}, blinkySettings, {sourceY: 34});
-const clydeSettings = Object.assign({}, blinkySettings, {sourceY: 50});
+const pinkySettings = Object.assign({}, blinkySettings, {sourceY: 18, destY: 25});
+const inkySettings = Object.assign({}, blinkySettings, {sourceY: 34, destY: 45});
+const clydeSettings = Object.assign({}, blinkySettings, {sourceY: 50, destY: 65});
 
 class Ghost extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(ctx, options) {

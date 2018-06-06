@@ -35,29 +35,52 @@ export default class Game {
     this.physics = physics;
     this.world = world;
     this.inky = inky;
+    this.blinky = blinky;
+    this.pinky = pinky;
+    this.clyde = clyde;
+
+    this.spriteArr = [
+      this.player.sprite,
+      this.inky,
+      this.blinky,
+      this.pinky,
+      this.clyde,
+      this.background,
+    ]
+
+    this.spriteRenderOrder = this.spriteArr.reverse();
 
     controller(this.player);
     touchController(this.player);
   }
 
   tick () {
-    this.player.sprite.update();
-    this.background.update();
-    this.inky.update();
+    // this.player.sprite.update();
+    // this.background.update();
+    // this.inky.update();
+    this.spriteArr.forEach((sprite) => {
+      sprite.update();
+    })
     this.physics(this.player, this.world);
     this.world.processWorld();
     this.render();
   }
 
   render() {
-    this.player.sprite.unRender();
-    this.inky.unRender();
-    this.background.unRender();
+    // this.player.sprite.unRender();
+    // this.inky.unRender();
+    // this.background.unRender();
+    this.spriteArr.forEach((sprite) => {
+      sprite.unRender();
+    })
     this.background.destWidth = ctx.canvas.width;
     this.background.sourceWidth = ctx.canvas.width;
-    this.background.render();
-    this.inky.render();
-    this.player.sprite.render();
+    // this.background.render();
+    // this.inky.render();
+    // this.player.sprite.render();
+    this.spriteRenderOrder.forEach((sprite) => {
+      sprite.render();
+    })
     ctx.font = "15px Arial";
     // ctx.fillText(`${this.player.sprite.destX}, ${this.player.sprite.destY}`, 15, 15);
     // ctx.fillText(`${this.world.ground}`, 15, 35);

@@ -228,9 +228,6 @@ class Game {
   }
 
   tick () {
-    // this.player.sprite.update();
-    // this.background.update();
-    // this.inky.update();
     this.spriteArr.forEach((sprite) => {
       sprite.update();
     })
@@ -240,23 +237,17 @@ class Game {
   }
 
   render() {
-    // this.player.sprite.unRender();
-    // this.inky.unRender();
-    // this.background.unRender();
     this.spriteArr.forEach((sprite) => {
       sprite.unRender();
     })
     this.background.destWidth = ctx.canvas.width;
     this.background.sourceWidth = ctx.canvas.width;
-    // this.background.render();
-    // this.inky.render();
-    // this.player.sprite.render();
     this.spriteRenderOrder.forEach((sprite) => {
       sprite.render();
     })
     ctx.font = "15px Arial";
-    // ctx.fillText(`${this.player.sprite.destX}, ${this.player.sprite.destY}`, 15, 15);
-    // ctx.fillText(`${this.world.ground}`, 15, 35);
+    ctx.fillText(`${this.player.sprite.destX + this.world.background.sourceX}, ${this.player.sprite.destY}`, 15, 15);
+    ctx.fillText(`${this.world.ground}`, 15, 35);
   }
 }
 
@@ -398,7 +389,9 @@ class Player {
   }
 
   jump () {
-    this.vVel -= 15;
+    if (this.sprite.destY > 0) {
+      this.vVel -= 15;
+    }
   }
 
   stop () {
@@ -771,13 +764,16 @@ __webpack_require__.r(__webpack_exports__);
 // starting platform: y: 202, x: 0 => 260
 
 class World {
-  constructor (sprite, background) {
+  constructor (sprite, background, ghosts) {
     this.sprite = sprite;
     this.background = background;
+    this.ghosts = ghosts;
     this.ground = 168;
     this.rBound = 2209;
     this.left = 0;
     this.right = 2209 - background.sourceX;
+
+    this.ghostSlider = 0;
 
     this.reset = this.reset.bind(this);
   }
@@ -827,7 +823,7 @@ class World {
       this.ground = 167;
     } else if (
       (sanikPos >= 270 && sanikPos <= 353) ||
-      (sanikPos >= 512 && sanikPos <= 560)
+      (sanikPos >= 492 && sanikPos <= 560)
     ) {
       this.ground = 152;
     } else if (
@@ -844,11 +840,11 @@ class World {
     ) {
       this.ground = 101;
     } else if (
-      (sanikPos >= 561 && sanikPos <= 640)
+      (sanikPos >= 561 && sanikPos <= 624)
     ) {
       this.ground = 85;
     } else if (
-      (sanikPos >= 642 && sanikPos <= 753)
+      (sanikPos >= 624 && sanikPos <= 753)
     ) {
       this.ground = 20;
     } else if (
@@ -863,7 +859,7 @@ class World {
       (sanikPos >= 1044 && sanikPos <= 1120) ||
       (sanikPos >= 1808 && sanikPos <= 1857)
     ) {
-      this.ground = 165;
+      this.ground = 167;
     } else if (
       (sanikPos >= 1216 && sanikPos <= 1312)
     ) {
@@ -887,7 +883,7 @@ class World {
     } else if (
       (sanikPos >= 1664 && sanikPos <= 1794)
     ) {
-      this.ground = 73;
+      this.ground = 74;
     } else if (
       (sanikPos >= 1809 && sanikPos <= 1857)
     ) {
@@ -926,7 +922,15 @@ class World {
     }
   }
 
-  reset () {
+  moveGhost () {
+    this.ghosts.forEach((ghost) => {
+      ghost.destX += this.ghostSlider;
+    })
+    this.ghostSlider += 5
+  }
+
+  reset (e) {
+    e.preventDefault();
     window.location.href = window.location.href;
   }
 

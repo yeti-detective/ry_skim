@@ -1,7 +1,7 @@
 import Sprite from './sprite';
 
 const sanikImg = new Image();
-sanikImg.src = "./assets/sonic.png";
+sanikImg.src = './assets/sonic.png';
 
 const sonicOptions = {
   image: sanikImg,

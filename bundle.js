@@ -169,12 +169,14 @@ const controller = (player) => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Game; });
 /* harmony import */ var _sanik__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sanik */ "./scripts/sanik.js");
-/* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./background */ "./scripts/background.js");
-/* harmony import */ var _physics__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./physics */ "./scripts/physics.js");
-/* harmony import */ var _player__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./player */ "./scripts/player.js");
-/* harmony import */ var _controller__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./controller */ "./scripts/controller.js");
-/* harmony import */ var _touch_controller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./touch_controller */ "./scripts/touch_controller.js");
-/* harmony import */ var _world__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./world */ "./scripts/world.js");
+/* harmony import */ var _ghost__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ghost */ "./scripts/ghost.js");
+/* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./background */ "./scripts/background.js");
+/* harmony import */ var _physics__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./physics */ "./scripts/physics.js");
+/* harmony import */ var _player__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./player */ "./scripts/player.js");
+/* harmony import */ var _controller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./controller */ "./scripts/controller.js");
+/* harmony import */ var _touch_controller__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./touch_controller */ "./scripts/touch_controller.js");
+/* harmony import */ var _world__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./world */ "./scripts/world.js");
+
 
 
 
@@ -187,26 +189,34 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 const sanik = new _sanik__WEBPACK_IMPORTED_MODULE_0__["default"](ctx);
-const player = new _player__WEBPACK_IMPORTED_MODULE_3__["default"](sanik);
+const player = new _player__WEBPACK_IMPORTED_MODULE_4__["default"](sanik);
 
-const background = new _background__WEBPACK_IMPORTED_MODULE_1__["default"](ctx);
 
-const world = new _world__WEBPACK_IMPORTED_MODULE_6__["default"](sanik, background);
+const inky = new _ghost__WEBPACK_IMPORTED_MODULE_1__["default"](ctx, _ghost__WEBPACK_IMPORTED_MODULE_1__["inkySettings"]);
+const blinky = new _ghost__WEBPACK_IMPORTED_MODULE_1__["default"](ctx, _ghost__WEBPACK_IMPORTED_MODULE_1__["blinkySettings"]);
+const pinky = new _ghost__WEBPACK_IMPORTED_MODULE_1__["default"](ctx, _ghost__WEBPACK_IMPORTED_MODULE_1__["pinkySettings"]);
+const clyde = new _ghost__WEBPACK_IMPORTED_MODULE_1__["default"](ctx, _ghost__WEBPACK_IMPORTED_MODULE_1__["clydeSettings"]);
+
+const background = new _background__WEBPACK_IMPORTED_MODULE_2__["default"](ctx);
+
+const world = new _world__WEBPACK_IMPORTED_MODULE_7__["default"](sanik, background);
 
 class Game {
   constructor() {
     this.player = player;
     this.background = background;
-    this.physics = _physics__WEBPACK_IMPORTED_MODULE_2__["default"];
+    this.physics = _physics__WEBPACK_IMPORTED_MODULE_3__["default"];
     this.world = world;
+    this.inky = inky;
 
-    Object(_controller__WEBPACK_IMPORTED_MODULE_4__["default"])(this.player);
-    Object(_touch_controller__WEBPACK_IMPORTED_MODULE_5__["default"])(this.player);
+    Object(_controller__WEBPACK_IMPORTED_MODULE_5__["default"])(this.player);
+    Object(_touch_controller__WEBPACK_IMPORTED_MODULE_6__["default"])(this.player);
   }
 
   tick () {
     this.player.sprite.update();
     this.background.update();
+    this.inky.update();
     this.physics(this.player, this.world);
     this.world.processWorld();
     this.render();
@@ -214,14 +224,71 @@ class Game {
 
   render() {
     this.player.sprite.unRender();
+    this.inky.unRender();
     this.background.unRender();
     this.background.destWidth = ctx.canvas.width;
     this.background.sourceWidth = ctx.canvas.width;
     this.background.render();
+    this.inky.render();
     this.player.sprite.render();
     ctx.font = "15px Arial";
     // ctx.fillText(`${this.player.sprite.destX}, ${this.player.sprite.destY}`, 15, 15);
     // ctx.fillText(`${this.world.ground}`, 15, 35);
+  }
+}
+
+
+/***/ }),
+
+/***/ "./scripts/ghost.js":
+/*!**************************!*\
+  !*** ./scripts/ghost.js ***!
+  \**************************/
+/*! exports provided: blinkySettings, pinkySettings, inkySettings, clydeSettings, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "blinkySettings", function() { return blinkySettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pinkySettings", function() { return pinkySettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inkySettings", function() { return inkySettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clydeSettings", function() { return clydeSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Ghost; });
+/* harmony import */ var _sprite__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sprite */ "./scripts/sprite.js");
+
+
+const ghostImg = new Image();
+ghostImg.src = './assets/inky_pinky_blinky_clyde.png';
+
+const blinkySettings = {
+  image: ghostImg,
+  sourceX: 2,
+  sourceY: 2,
+  sourceWidth: 14,
+  sourceHeight: 14,
+  destX: 5,
+  destY: 5,
+  destWidth: 20,
+  destHeight: 20
+};
+
+const pinkySettings = Object.assign({}, blinkySettings, {sourceY: 18});
+const inkySettings = Object.assign({}, blinkySettings, {sourceY: 34});
+const clydeSettings = Object.assign({}, blinkySettings, {sourceY: 50});
+
+class Ghost extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor(ctx, options) {
+    super(ctx, options);
+    this.animArray = [2, 17, 34, 50, 66, 82, 97, 113];
+
+    this.animate = this.animate.bind(this);
+  }
+
+  animate () {
+    if (this.animCount % 20 === 0) {
+      const animIndex = (this.animCount / 20) % this.animArray.length;
+      this.sourceX = this.animArray[animIndex];
+    }
   }
 }
 
@@ -334,7 +401,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const sanikImg = new Image();
-sanikImg.src = "./assets/sonic.png";
+sanikImg.src = './assets/sonic.png';
 
 const sonicOptions = {
   image: sanikImg,

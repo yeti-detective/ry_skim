@@ -76,7 +76,6 @@ export default class World {
   }
 
   checkForGhostTouches () {
-    console.log('checking for ghost touches');
     const sanikLeft = this.getSanikPos();
     const sanikRight = sanikLeft + this.sprite.destWidth;
     const sanikTop = this.sprite.destY;
@@ -200,15 +199,15 @@ export default class World {
     }
   }
 
+  reset (e) {
+    e.preventDefault();
+    window.location.href = window.location.href;
+  }
+
   scrollGhosts (dir) {
     this.ghosts.forEach((ghost) => {
       ghost.destX += 7 * dir;
     })
-  }
-
-  reset (e) {
-    e.preventDefault();
-    window.location.href = window.location.href;
   }
 
   gameOverButton() {
@@ -225,7 +224,6 @@ export default class World {
   processWorld () {
     this.scrollBackground();
     this.moveGhost();
-    this.checkForGhostTouches();
     this.checkForFall();
     this.checkForPlatform();
     this.checkForWin();

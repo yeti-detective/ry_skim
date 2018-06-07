@@ -277,6 +277,7 @@ ghostImg.src = './assets/inky_pinky_blinky_clyde.png';
 
 const blinkySettings = {
   image: ghostImg,
+  name: "blinky",
   sourceX: 2,
   sourceY: 2,
   sourceWidth: 14,
@@ -291,6 +292,7 @@ const pinkySettings = Object.assign(
   {},
   blinkySettings,
   {
+    name: 'pinky',
     sourceY: 18,
     destX: 1296,
     destY: 68
@@ -300,6 +302,7 @@ const inkySettings = Object.assign(
   {},
   blinkySettings,
   {
+    name: 'inky',
     sourceY: 34,
     destX: 1765,
     destY: 84
@@ -309,6 +312,7 @@ const clydeSettings = Object.assign(
   {},
   blinkySettings,
   {
+    name: 'clyde',
     sourceY: 50,
     destX: 1961,
     destY: 116
@@ -865,7 +869,7 @@ class World {
   }
 
   checkForGhostTouches () {
-    const sanikLeft = this.getSanikPos();
+    const sanikLeft = this.sprite.destX;
     const sanikRight = sanikLeft + this.sprite.destWidth;
     const sanikTop = this.sprite.destY;
     const sanikBottom = sanikTop + this.sprite.destHeight;
@@ -875,13 +879,15 @@ class World {
       const ghostTop = ghost.destY;
       const ghostBottom = ghostTop + ghost.destHeight;
       if (
-        ((sanikRight > ghostRight && sanikLeft < ghostRight) &&
-        ((sanikBottom > ghostTop && sanikTop < ghostTop) ||
-        (sanikTop < ghostBottom && sanikBottom > ghostBottom))) ||
-        ((sanikLeft < ghostRight && sanikRight > ghostRight) &&
-        ((sanikBottom > ghostTop && sanikTop < ghostTop) ||
-        (sanikTop < ghostBottom && sanikBottom > ghostBottom)))
+        (
+          (ghostLeft < sanikRight && ghostLeft > sanikLeft) ||
+          (ghostRight > sanikLeft && ghostRight < sanikRight)
+        ) && (
+          (ghostTop < sanikBottom && ghostTop > sanikTop) ||
+          (ghostBottom > sanikTop && ghostBottom < sanikBottom)
+        )
       ) {
+        debugger
         this.sprite.dead = true;
       }
     })
@@ -1015,6 +1021,7 @@ class World {
     this.moveGhost();
     this.checkForFall();
     this.checkForPlatform();
+    this.checkForGhostTouches();
     this.checkForWin();
     this.checkForDie();
   }

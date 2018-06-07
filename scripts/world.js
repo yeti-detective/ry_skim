@@ -76,7 +76,7 @@ export default class World {
   }
 
   checkForGhostTouches () {
-    const sanikLeft = this.getSanikPos();
+    const sanikLeft = this.sprite.destX;
     const sanikRight = sanikLeft + this.sprite.destWidth;
     const sanikTop = this.sprite.destY;
     const sanikBottom = sanikTop + this.sprite.destHeight;
@@ -86,13 +86,15 @@ export default class World {
       const ghostTop = ghost.destY;
       const ghostBottom = ghostTop + ghost.destHeight;
       if (
-        ((sanikRight > ghostRight && sanikLeft < ghostRight) &&
-        ((sanikBottom > ghostTop && sanikTop < ghostTop) ||
-        (sanikTop < ghostBottom && sanikBottom > ghostBottom))) ||
-        ((sanikLeft < ghostRight && sanikRight > ghostRight) &&
-        ((sanikBottom > ghostTop && sanikTop < ghostTop) ||
-        (sanikTop < ghostBottom && sanikBottom > ghostBottom)))
+        (
+          (ghostLeft < sanikRight && ghostLeft > sanikLeft) ||
+          (ghostRight > sanikLeft && ghostRight < sanikRight)
+        ) && (
+          (ghostTop < sanikBottom && ghostTop > sanikTop) ||
+          (ghostBottom > sanikTop && ghostBottom < sanikBottom)
+        )
       ) {
+        debugger
         this.sprite.dead = true;
       }
     })
@@ -226,6 +228,7 @@ export default class World {
     this.moveGhost();
     this.checkForFall();
     this.checkForPlatform();
+    this.checkForGhostTouches();
     this.checkForWin();
     this.checkForDie();
   }

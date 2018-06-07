@@ -26,7 +26,7 @@ const clyde = new Ghost(ctx, clydeSettings);
 
 const background = new Background(ctx);
 
-const world = new World(sanik, background);
+const world = new World(sanik, background, [inky, blinky, pinky, clyde]);
 
 export default class Game {
   constructor() {
@@ -55,9 +55,6 @@ export default class Game {
   }
 
   tick () {
-    // this.player.sprite.update();
-    // this.background.update();
-    // this.inky.update();
     this.spriteArr.forEach((sprite) => {
       sprite.update();
     })
@@ -67,22 +64,17 @@ export default class Game {
   }
 
   render() {
-    // this.player.sprite.unRender();
-    // this.inky.unRender();
-    // this.background.unRender();
     this.spriteArr.forEach((sprite) => {
       sprite.unRender();
     })
     this.background.destWidth = ctx.canvas.width;
     this.background.sourceWidth = ctx.canvas.width;
-    // this.background.render();
-    // this.inky.render();
-    // this.player.sprite.render();
     this.spriteRenderOrder.forEach((sprite) => {
       sprite.render();
     })
-    ctx.font = "15px Arial";
-    // ctx.fillText(`${this.player.sprite.destX}, ${this.player.sprite.destY}`, 15, 15);
+    // ctx.font = "15px Arial";
+    // ctx.fillText(`${this.player.sprite.destX + this.world.background.sourceX},` +
+    //   ` ${this.player.sprite.destY}`, 15, 15);
     // ctx.fillText(`${this.world.ground}`, 15, 35);
   }
 }

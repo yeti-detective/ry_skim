@@ -199,7 +199,7 @@ const clyde = new _ghost__WEBPACK_IMPORTED_MODULE_1__["default"](ctx, _ghost__WE
 
 const background = new _background__WEBPACK_IMPORTED_MODULE_2__["default"](ctx);
 
-const world = new _world__WEBPACK_IMPORTED_MODULE_7__["default"](sanik, background);
+const world = new _world__WEBPACK_IMPORTED_MODULE_7__["default"](sanik, background, [inky, blinky, pinky, clyde]);
 
 class Game {
   constructor() {
@@ -228,9 +228,6 @@ class Game {
   }
 
   tick () {
-    // this.player.sprite.update();
-    // this.background.update();
-    // this.inky.update();
     this.spriteArr.forEach((sprite) => {
       sprite.update();
     })
@@ -240,22 +237,17 @@ class Game {
   }
 
   render() {
-    // this.player.sprite.unRender();
-    // this.inky.unRender();
-    // this.background.unRender();
     this.spriteArr.forEach((sprite) => {
       sprite.unRender();
     })
     this.background.destWidth = ctx.canvas.width;
     this.background.sourceWidth = ctx.canvas.width;
-    // this.background.render();
-    // this.inky.render();
-    // this.player.sprite.render();
     this.spriteRenderOrder.forEach((sprite) => {
       sprite.render();
     })
-    ctx.font = "15px Arial";
-    // ctx.fillText(`${this.player.sprite.destX}, ${this.player.sprite.destY}`, 15, 15);
+    // ctx.font = "15px Arial";
+    // ctx.fillText(`${this.player.sprite.destX + this.world.background.sourceX},` +
+    //   ` ${this.player.sprite.destY}`, 15, 15);
     // ctx.fillText(`${this.world.ground}`, 15, 35);
   }
 }
@@ -289,15 +281,39 @@ const blinkySettings = {
   sourceY: 2,
   sourceWidth: 14,
   sourceHeight: 14,
-  destX: 5,
-  destY: 5,
+  destX: 725,
+  destY: 33,
   destWidth: 20,
   destHeight: 20
 };
 
-const pinkySettings = Object.assign({}, blinkySettings, {sourceY: 18, destY: 25});
-const inkySettings = Object.assign({}, blinkySettings, {sourceY: 34, destY: 45});
-const clydeSettings = Object.assign({}, blinkySettings, {sourceY: 50, destY: 65});
+const pinkySettings = Object.assign(
+  {},
+  blinkySettings,
+  {
+    sourceY: 18,
+    destX: 1296,
+    destY: 68
+  }
+);
+const inkySettings = Object.assign(
+  {},
+  blinkySettings,
+  {
+    sourceY: 34,
+    destX: 1765,
+    destY: 84
+  }
+);
+const clydeSettings = Object.assign(
+  {},
+  blinkySettings,
+  {
+    sourceY: 50,
+    destX: 1961,
+    destY: 116
+  }
+);
 
 class Ghost extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(ctx, options) {
@@ -398,7 +414,9 @@ class Player {
   }
 
   jump () {
-    this.vVel -= 15;
+    if (this.sprite.destY > 0) {
+      this.vVel -= 15;
+    }
   }
 
   stop () {
@@ -768,18 +786,20 @@ const touchController = (player) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return World; });
-// starting platform: y: 202, x: 0 => 260
-
 class World {
-  constructor (sprite, background) {
+  constructor (sprite, background, ghosts) {
     this.sprite = sprite;
     this.background = background;
+    this.ghosts = ghosts;
     this.ground = 168;
     this.rBound = 2209;
     this.left = 0;
     this.right = 2209 - background.sourceX;
+    this.ghostDir = 1;
+    this.ghostSlider = 0
 
     this.reset = this.reset.bind(this);
+    this.scrollGhosts = this.scrollGhosts.bind(this);
   }
 
   getSanikPos () {
@@ -792,12 +812,14 @@ class World {
         this.background.sourceX + dispWidth < 2630) {
       this.background.sourceX += 7;
       this.sprite.destX -= 7;
+      this.scrollGhosts(-1);
     } else if (
       this.sprite.destX < (dispWidth * 0.2) &&
       this.background.sourceX > 0
     ) {
       this.background.sourceX -= 7;
       this.sprite.destX += 7;
+      this.scrollGhosts(1);
     }
   }
 
@@ -827,7 +849,7 @@ class World {
       this.ground = 167;
     } else if (
       (sanikPos >= 270 && sanikPos <= 353) ||
-      (sanikPos >= 512 && sanikPos <= 560)
+      (sanikPos >= 492 && sanikPos <= 560)
     ) {
       this.ground = 152;
     } else if (
@@ -844,11 +866,11 @@ class World {
     ) {
       this.ground = 101;
     } else if (
-      (sanikPos >= 561 && sanikPos <= 640)
+      (sanikPos >= 561 && sanikPos <= 624)
     ) {
       this.ground = 85;
     } else if (
-      (sanikPos >= 642 && sanikPos <= 753)
+      (sanikPos >= 624 && sanikPos <= 753)
     ) {
       this.ground = 20;
     } else if (
@@ -863,7 +885,7 @@ class World {
       (sanikPos >= 1044 && sanikPos <= 1120) ||
       (sanikPos >= 1808 && sanikPos <= 1857)
     ) {
-      this.ground = 165;
+      this.ground = 167;
     } else if (
       (sanikPos >= 1216 && sanikPos <= 1312)
     ) {
@@ -887,7 +909,7 @@ class World {
     } else if (
       (sanikPos >= 1664 && sanikPos <= 1794)
     ) {
-      this.ground = 73;
+      this.ground = 72;
     } else if (
       (sanikPos >= 1809 && sanikPos <= 1857)
     ) {
@@ -926,7 +948,26 @@ class World {
     }
   }
 
-  reset () {
+  moveGhost () {
+    if (this.sprite.animCount % 15 === 0) {
+      if (this.ghostSlider % 100 === 0) {
+        this.ghostDir *= -1;
+      }
+      this.ghosts.forEach((ghost) => {
+        ghost.destX += 3 * this.ghostDir;
+      })
+      this.ghostSlider += 5 * this.ghostDir;
+    }
+  }
+
+  scrollGhosts (dir) {
+    this.ghosts.forEach((ghost) => {
+      ghost.destX += 7 * dir;
+    })
+  }
+
+  reset (e) {
+    e.preventDefault();
     window.location.href = window.location.href;
   }
 
@@ -943,6 +984,7 @@ class World {
 
   processWorld () {
     this.scrollBackground();
+    this.moveGhost();
     this.checkForFall();
     this.checkForPlatform();
     this.checkForWin();

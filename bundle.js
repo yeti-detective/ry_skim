@@ -282,14 +282,38 @@ const blinkySettings = {
   sourceWidth: 14,
   sourceHeight: 14,
   destX: 725,
-  destY: 30,
+  destY: 33,
   destWidth: 20,
   destHeight: 20
 };
 
-const pinkySettings = Object.assign({}, blinkySettings, {sourceY: 18, destY: 25});
-const inkySettings = Object.assign({}, blinkySettings, {sourceY: 34, destY: 45});
-const clydeSettings = Object.assign({}, blinkySettings, {sourceY: 50, destY: 65});
+const pinkySettings = Object.assign(
+  {},
+  blinkySettings,
+  {
+    sourceY: 18,
+    destX: 1296,
+    destY: 68
+  }
+);
+const inkySettings = Object.assign(
+  {},
+  blinkySettings,
+  {
+    sourceY: 34,
+    destX: 1765,
+    destY: 84
+  }
+);
+const clydeSettings = Object.assign(
+  {},
+  blinkySettings,
+  {
+    sourceY: 50,
+    destX: 1961,
+    destY: 116
+  }
+);
 
 class Ghost extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(ctx, options) {
@@ -775,6 +799,7 @@ class World {
     this.ghostSlider = 0
 
     this.reset = this.reset.bind(this);
+    this.scrollGhosts = this.scrollGhosts.bind(this);
   }
 
   getSanikPos () {
@@ -787,12 +812,14 @@ class World {
         this.background.sourceX + dispWidth < 2630) {
       this.background.sourceX += 7;
       this.sprite.destX -= 7;
+      this.scrollGhosts(-1);
     } else if (
       this.sprite.destX < (dispWidth * 0.2) &&
       this.background.sourceX > 0
     ) {
       this.background.sourceX -= 7;
       this.sprite.destX += 7;
+      this.scrollGhosts(1);
     }
   }
 
@@ -882,7 +909,7 @@ class World {
     } else if (
       (sanikPos >= 1664 && sanikPos <= 1794)
     ) {
-      this.ground = 74;
+      this.ground = 72;
     } else if (
       (sanikPos >= 1809 && sanikPos <= 1857)
     ) {
@@ -924,7 +951,6 @@ class World {
   moveGhost () {
     if (this.sprite.animCount % 15 === 0) {
       if (this.ghostSlider % 100 === 0) {
-        console.log(this.ghostSlider);
         this.ghostDir *= -1;
       }
       this.ghosts.forEach((ghost) => {
@@ -932,6 +958,12 @@ class World {
       })
       this.ghostSlider += 5 * this.ghostDir;
     }
+  }
+
+  scrollGhosts (dir) {
+    this.ghosts.forEach((ghost) => {
+      ghost.destX += 7 * dir;
+    })
   }
 
   reset (e) {

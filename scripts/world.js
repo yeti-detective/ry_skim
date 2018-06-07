@@ -11,6 +11,7 @@ export default class World {
     this.ghostSlider = 0
 
     this.reset = this.reset.bind(this);
+    this.scrollGhosts = this.scrollGhosts.bind(this);
   }
 
   getSanikPos () {
@@ -23,12 +24,14 @@ export default class World {
         this.background.sourceX + dispWidth < 2630) {
       this.background.sourceX += 7;
       this.sprite.destX -= 7;
+      this.scrollGhosts(-1);
     } else if (
       this.sprite.destX < (dispWidth * 0.2) &&
       this.background.sourceX > 0
     ) {
       this.background.sourceX -= 7;
       this.sprite.destX += 7;
+      this.scrollGhosts(1);
     }
   }
 
@@ -118,7 +121,7 @@ export default class World {
     } else if (
       (sanikPos >= 1664 && sanikPos <= 1794)
     ) {
-      this.ground = 74;
+      this.ground = 72;
     } else if (
       (sanikPos >= 1809 && sanikPos <= 1857)
     ) {
@@ -160,7 +163,6 @@ export default class World {
   moveGhost () {
     if (this.sprite.animCount % 15 === 0) {
       if (this.ghostSlider % 100 === 0) {
-        console.log(this.ghostSlider);
         this.ghostDir *= -1;
       }
       this.ghosts.forEach((ghost) => {
@@ -168,6 +170,12 @@ export default class World {
       })
       this.ghostSlider += 5 * this.ghostDir;
     }
+  }
+
+  scrollGhosts (dir) {
+    this.ghosts.forEach((ghost) => {
+      ghost.destX += 7 * dir;
+    })
   }
 
   reset (e) {

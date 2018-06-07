@@ -10,14 +10,38 @@ export const blinkySettings = {
   sourceWidth: 14,
   sourceHeight: 14,
   destX: 725,
-  destY: 30,
+  destY: 33,
   destWidth: 20,
   destHeight: 20
 };
 
-export const pinkySettings = Object.assign({}, blinkySettings, {sourceY: 18, destY: 25});
-export const inkySettings = Object.assign({}, blinkySettings, {sourceY: 34, destY: 45});
-export const clydeSettings = Object.assign({}, blinkySettings, {sourceY: 50, destY: 65});
+export const pinkySettings = Object.assign(
+  {},
+  blinkySettings,
+  {
+    sourceY: 18,
+    destX: 1296,
+    destY: 68
+  }
+);
+export const inkySettings = Object.assign(
+  {},
+  blinkySettings,
+  {
+    sourceY: 34,
+    destX: 1765,
+    destY: 84
+  }
+);
+export const clydeSettings = Object.assign(
+  {},
+  blinkySettings,
+  {
+    sourceY: 50,
+    destX: 1961,
+    destY: 116
+  }
+);
 
 export default class Ghost extends Sprite {
   constructor(ctx, options) {

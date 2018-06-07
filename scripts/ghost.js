@@ -5,6 +5,7 @@ ghostImg.src = './assets/inky_pinky_blinky_clyde.png';
 
 export const blinkySettings = {
   image: ghostImg,
+  name: "blinky",
   sourceX: 2,
   sourceY: 2,
   sourceWidth: 14,
@@ -19,6 +20,7 @@ export const pinkySettings = Object.assign(
   {},
   blinkySettings,
   {
+    name: 'pinky',
     sourceY: 18,
     destX: 1296,
     destY: 68
@@ -28,6 +30,7 @@ export const inkySettings = Object.assign(
   {},
   blinkySettings,
   {
+    name: 'inky',
     sourceY: 34,
     destX: 1765,
     destY: 84
@@ -37,6 +40,7 @@ export const clydeSettings = Object.assign(
   {},
   blinkySettings,
   {
+    name: 'clyde',
     sourceY: 50,
     destX: 1961,
     destY: 116

@@ -245,10 +245,10 @@ class Game {
     this.spriteRenderOrder.forEach((sprite) => {
       sprite.render();
     })
-    ctx.font = "15px Arial";
-    ctx.fillText(`${this.player.sprite.destX + this.world.background.sourceX},` +
-      ` ${this.player.sprite.destY}`, 15, 15);
-    ctx.fillText(`${this.world.ground}`, 15, 35);
+    // ctx.font = "15px Arial";
+    // ctx.fillText(`${this.player.sprite.destX + this.world.background.sourceX},` +
+    //   ` ${this.player.sprite.destY}`, 15, 15);
+    // ctx.fillText(`${this.world.ground}`, 15, 35);
   }
 }
 

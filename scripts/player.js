@@ -29,7 +29,7 @@ export default class Player {
 
   right () {
     this.sprite.facingLeft = false;
-    this.hVel = 7;
+    this.hVel = 5;
   }
 
   jump () {

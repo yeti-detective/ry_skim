@@ -361,9 +361,9 @@ const physics = (player, world) => {
   }
   // right and left barriers
   if (player.sprite.destX <= world.left) {
-    player.sprite.destX += 7;
+    player.sprite.destX += 5;
   } else if (player.sprite.destX >= world.right) {
-    player.sprite.destX -= 7;
+    player.sprite.destX -= 5;
   }
   player.affect();
 };
@@ -414,7 +414,7 @@ class Player {
 
   right () {
     this.sprite.facingLeft = false;
-    this.hVel = 7;
+    this.hVel = 5;
   }
 
   jump () {
@@ -815,15 +815,15 @@ class World {
     const dispWidth = this.background.context.canvas.width;
     if (this.sprite.destX > (dispWidth * 0.8) &&
         this.background.sourceX + dispWidth < 2630) {
-      this.background.sourceX += 7;
-      this.sprite.destX -= 7;
+      this.background.sourceX += 5;
+      this.sprite.destX -= 5;
       this.scrollGhosts(-1);
     } else if (
       this.sprite.destX < (dispWidth * 0.2) &&
       this.background.sourceX > 0
     ) {
-      this.background.sourceX -= 7;
-      this.sprite.destX += 7;
+      this.background.sourceX -= 5;
+      this.sprite.destX += 5;
       this.scrollGhosts(1);
     }
   }

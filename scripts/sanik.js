@@ -21,6 +21,7 @@ export default class Sanik extends Sprite {
     super(ctx, settings);
     this.facingLeft = false;
     this.animArray = [{x: 0, y:0, w: 0}];
+    this.dead = false;
 
     this.animate = this.animate.bind(this);
     this.chill = this.chill.bind(this);

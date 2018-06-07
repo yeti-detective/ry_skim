@@ -462,6 +462,7 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
     super(ctx, settings);
     this.facingLeft = false;
     this.animArray = [{x: 0, y:0, w: 0}];
+    this.dead = false;
 
     this.animate = this.animate.bind(this);
     this.chill = this.chill.bind(this);
@@ -823,6 +824,23 @@ class World {
     }
   }
 
+  checkForBarrier () {
+    const sanikLeft = this.getSanikPos();
+    const sanikRight = this.getSanikPos() + this.sprite.destWidth;
+    if (sanikLeft = 0) {
+      this.left = 0;
+    }
+  }
+
+  checkForDie () {
+    if (this.sprite.dead) {
+      window.clearInterval(gameLoop);
+      const container = document.getElementById('container');
+      container.innerHTML = '<h2>Oh no! You died!</h2>'
+      this.gameOverButton();
+    }
+  }
+
   checkForFall () {
     const sanikPos = this.getSanikPos();
     if (
@@ -841,7 +859,35 @@ class World {
       (sanikPos > 2017 && sanikPos < 2060) ) {
       this.ground = 300;
     }
+    if (this.sprite.destY > 250) {
+      this.sprite.dead = true;
+    }
   }
+
+  checkForGhostTouches () {
+    console.log('checking for ghost touches');
+    const sanikLeft = this.getSanikPos();
+    const sanikRight = sanikLeft + this.sprite.destWidth;
+    const sanikTop = this.sprite.destY;
+    const sanikBottom = sanikTop + this.sprite.destHeight;
+    this.ghosts.forEach((ghost) => {
+      const ghostLeft = ghost.destX;
+      const ghostRight = ghostLeft + ghost.destWidth;
+      const ghostTop = ghost.destY;
+      const ghostBottom = ghostTop + ghost.destHeight;
+      if (
+        ((sanikRight > ghostRight && sanikLeft < ghostRight) &&
+        ((sanikBottom > ghostTop && sanikTop < ghostTop) ||
+        (sanikTop < ghostBottom && sanikBottom > ghostBottom))) ||
+        ((sanikLeft < ghostRight && sanikRight > ghostRight) &&
+        ((sanikBottom > ghostTop && sanikTop < ghostTop) ||
+        (sanikTop < ghostBottom && sanikBottom > ghostBottom)))
+      ) {
+        this.sprite.dead = true;
+      }
+    })
+  }
+
 
   checkForPlatform () {
     const sanikPos = this.getSanikPos();
@@ -921,29 +967,12 @@ class World {
     }
   }
 
-  checkForBarrier () {
-    const sanikLeft = this.getSanikPos();
-    const sanikRight = this.getSanikPos() + this.sprite.destWidth;
-    if (sanikLeft = 0) {
-      this.left = 0;
-    }
-  }
-
   checkForWin () {
     const sanikPos = this.getSanikPos();
     if (sanikPos >= 2546 && this.sprite.destY <= this.ground) {
       window.clearInterval(gameLoop);
       const container = document.getElementById('container');
       container.innerHTML = '<h2>Congratulations! You won!</h2>'
-      this.gameOverButton();
-    }
-  }
-
-  checkForDie () {
-    if (this.sprite.destY > 250) {
-      window.clearInterval(gameLoop);
-      const container = document.getElementById('container');
-      container.innerHTML = '<h2>Oh no! You died!</h2>'
       this.gameOverButton();
     }
   }
@@ -985,6 +1014,7 @@ class World {
   processWorld () {
     this.scrollBackground();
     this.moveGhost();
+    this.checkForGhostTouches();
     this.checkForFall();
     this.checkForPlatform();
     this.checkForWin();

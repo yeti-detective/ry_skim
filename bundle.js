@@ -831,8 +831,22 @@ class World {
   checkForBarrier () {
     const sanikLeft = this.getSanikPos();
     const sanikRight = this.getSanikPos() + this.sprite.destWidth;
-    if (sanikLeft = 0) {
+    const sanikFeet = this.sprite.destY + this.sprite.destHeight;
+    if (sanikLeft <= 2306) {
       this.left = 0;
+    } else {
+      this.left = 2306;
+    }
+    if (sanikRight <= 2306) {
+      if (sanikFeet > 138) {
+        this.right = 2210 - this.background.sourceX;
+      } else if (sanikFeet > 105) {
+        this.right = 2241 - this.background.sourceX;
+      } else if (sanikFeet > 72) {
+        this.right = 2274 - this.background.sourceX;
+      } else {
+        this.right = 2632 - this.background.sourceX;
+      }
     }
   }
 
@@ -887,7 +901,6 @@ class World {
           (ghostBottom > sanikTop && ghostBottom < sanikBottom)
         )
       ) {
-        debugger
         this.sprite.dead = true;
       }
     })

@@ -13,5 +13,8 @@
 
 ***
 ### In Development
-* Coming soon: Inky, Pinky, Blinky, & Clyde!
+* ~~Coming soon: Inky, Pinky, Blinky, & Clyde!~~
+    * WE GOT GHOSTS!
 ![dem ghosts](./screenshots/them_ghost_bois.png)
+* Coming soon: *Spin Attack*
+![spin attack](./screenshots/spin_attack.png)

@@ -524,7 +524,7 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
     ];
     this.animArray = walkArr.concat(walkArr.reverse());
     this.leftAnimArr = this.flipImage(this.animArray);
-    this.speed = 5;
+    this.speed = 7;
   }
 
   die () {

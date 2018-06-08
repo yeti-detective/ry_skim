@@ -79,7 +79,7 @@ export default class Sanik extends Sprite {
     ];
     this.animArray = walkArr.concat(walkArr.reverse());
     this.leftAnimArr = this.flipImage(this.animArray);
-    this.speed = 5;
+    this.speed = 7;
   }
 
   die () {

@@ -361,9 +361,9 @@ const physics = (player, world) => {
   }
   // right and left barriers
   if (player.sprite.destX <= world.left) {
-    player.sprite.destX += 5;
+    player.sprite.destX += 7;
   } else if (player.sprite.destX >= world.right) {
-    player.sprite.destX -= 5;
+    player.sprite.destX -= 7;
   }
   player.affect();
 };
@@ -414,7 +414,7 @@ class Player {
 
   right () {
     this.sprite.facingLeft = false;
-    this.hVel = 5;
+    this.hVel = 7;
   }
 
   jump () {
@@ -524,7 +524,7 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
     ];
     this.animArray = walkArr.concat(walkArr.reverse());
     this.leftAnimArr = this.flipImage(this.animArray);
-    this.speed = 5;
+    this.speed = 7;
   }
 
   die () {
@@ -815,15 +815,15 @@ class World {
     const dispWidth = this.background.context.canvas.width;
     if (this.sprite.destX > (dispWidth * 0.8) &&
         this.background.sourceX + dispWidth < 2630) {
-      this.background.sourceX += 5;
-      this.sprite.destX -= 5;
+      this.background.sourceX += 7;
+      this.sprite.destX -= 7;
       this.scrollGhosts(-1);
     } else if (
       this.sprite.destX < (dispWidth * 0.2) &&
       this.background.sourceX > 0
     ) {
-      this.background.sourceX -= 5;
-      this.sprite.destX += 5;
+      this.background.sourceX -= 7;
+      this.sprite.destX += 7;
       this.scrollGhosts(1);
     }
   }

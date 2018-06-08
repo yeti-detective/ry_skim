@@ -12,9 +12,9 @@ const physics = (player, world) => {
   }
   // right and left barriers
   if (player.sprite.destX <= world.left) {
-    player.sprite.destX += 5;
+    player.sprite.destX += 7;
   } else if (player.sprite.destX >= world.right) {
-    player.sprite.destX -= 5;
+    player.sprite.destX -= 7;
   }
   player.affect();
 };

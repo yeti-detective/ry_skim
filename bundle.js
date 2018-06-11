@@ -944,7 +944,7 @@ class World {
       this.ground = 35
     } else if (
       (sanikPos >= 801 && sanikPos <= 862) ||
-      (sanikPos >= 945 && sanikPos <= 1023 &&
+      (sanikPos >= 925 && sanikPos <= 1023 &&
       this.sprite.destY + this.sprite.destHeight > 75) ||
       (sanikPos >= 1044 && sanikPos <= 1120) ||
       (sanikPos >= 1808 && sanikPos <= 1857)

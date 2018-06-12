@@ -981,7 +981,12 @@ class World {
       (sanikPos > 962 && sanikPos <= 1026 &&
       this.sprite.destY + this.sprite.destHeight < 75)
     ) {
-      this.ground = 35
+      this.ground = 35;
+    } else if (
+      (sanikPos >= 935 && sanikPos <= 963 &&
+      this.sprite.destY + this.sprite.destHeight < 156)
+    ) {
+      this.ground = 115;
     } else if (
       (sanikPos >= 801 && sanikPos <= 862) ||
       (sanikPos >= 925 && sanikPos <= 1023 &&

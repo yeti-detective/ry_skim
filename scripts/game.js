@@ -12,6 +12,8 @@ import controller from './controller';
 import touchController from './touch_controller';
 import World from './world';
 
+import generateController from './generate_controller';
+
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -49,9 +51,8 @@ export default class Game {
     ]
 
     this.spriteRenderOrder = this.spriteArr.reverse();
-
+    this.makeTouchController = this.makeTouchController.bind(this);
     controller(this.player);
-    touchController(this.player);
   }
 
   tick () {
@@ -61,6 +62,11 @@ export default class Game {
     this.physics(this.player, this.world);
     this.world.processWorld();
     this.render();
+  }
+
+  makeTouchController () {
+    generateController();
+    touchController(this.player);
   }
 
   render() {

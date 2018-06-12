@@ -1,4 +1,4 @@
-import Game from './game.js';
+import Game from './game';
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext("2d");
@@ -14,6 +14,7 @@ window.addEventListener('resize', () => {
 });
 
 const game = new Game();
+window.generateController = game.makeTouchController;
 
 window.addEventListener('load', () => {
   const gameLoop = setInterval(() => {

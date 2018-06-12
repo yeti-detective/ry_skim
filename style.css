@@ -83,3 +83,18 @@ button {
 i {
   padding-top: 20px;
 }
+
+.instructions {
+  background-color: rgba(39, 39, 155, 0.5);
+  margin: auto;
+  width: 50%;
+  border-radius: 10px;
+  color: #B5B5EC;
+  text-shadow: 2px 2px 2px #27279B;
+}
+
+.instructions span {
+  color: #F4E446;
+  text-shadow: 2px 2px 2px #B5B5EC;
+  cursor: pointer;
+}

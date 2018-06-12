@@ -176,6 +176,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _controller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./controller */ "./scripts/controller.js");
 /* harmony import */ var _touch_controller__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./touch_controller */ "./scripts/touch_controller.js");
 /* harmony import */ var _world__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./world */ "./scripts/world.js");
+/* harmony import */ var _generate_controller__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./generate_controller */ "./scripts/generate_controller.js");
+
+
 
 
 
@@ -222,9 +225,8 @@ class Game {
     ]
 
     this.spriteRenderOrder = this.spriteArr.reverse();
-
+    this.makeTouchController = this.makeTouchController.bind(this);
     Object(_controller__WEBPACK_IMPORTED_MODULE_5__["default"])(this.player);
-    Object(_touch_controller__WEBPACK_IMPORTED_MODULE_6__["default"])(this.player);
   }
 
   tick () {
@@ -234,6 +236,11 @@ class Game {
     this.physics(this.player, this.world);
     this.world.processWorld();
     this.render();
+  }
+
+  makeTouchController () {
+    Object(_generate_controller__WEBPACK_IMPORTED_MODULE_8__["default"])();
+    Object(_touch_controller__WEBPACK_IMPORTED_MODULE_6__["default"])(this.player);
   }
 
   render() {
@@ -251,6 +258,38 @@ class Game {
     // ctx.fillText(`${this.world.ground}`, 15, 35);
   }
 }
+
+
+/***/ }),
+
+/***/ "./scripts/generate_controller.js":
+/*!****************************************!*\
+  !*** ./scripts/generate_controller.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const generateController = () => {
+  const left = document.createElement('div');
+  const jump = document.createElement('div');
+  const right = document.createElement('div');
+
+  left.id = 'left';
+  jump.id = 'jump';
+  right.id = 'right';
+
+  jump.innerHTML = '<h2 id="jumpButton">J</h2>';
+
+  const controller = document.getElementById('controller');
+  controller.innerHTML = '';
+  [left, jump, right].forEach((child) => {
+    controller.appendChild(child);
+  })
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (generateController);
 
 
 /***/ }),
@@ -572,7 +611,7 @@ class Sanik extends _sprite__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _game_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game.js */ "./scripts/game.js");
+/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game */ "./scripts/game.js");
 
 
 const canvas = document.getElementById('canvas');
@@ -588,7 +627,8 @@ window.addEventListener('resize', () => {
   canvasSize();
 });
 
-const game = new _game_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+const game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"]();
+window.generateController = game.makeTouchController;
 
 window.addEventListener('load', () => {
   const gameLoop = setInterval(() => {
